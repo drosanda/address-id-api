@@ -11,6 +11,8 @@ Here is the version log:
 ## How to use
 To use the API, you can open postman.json on this project directory using [Postman](https://www.postman.com/downloads/).
 
+## Data Source
+Address and Location data obtained from [bachors](https://github.com/bachors/kodepos-indonesia.sql).
 
 ## License
-Seme Framework licensed under MIT License 2.0
+Licensed under MIT License 2.0
