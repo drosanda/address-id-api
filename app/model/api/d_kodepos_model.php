@@ -45,6 +45,7 @@ class D_KodePos_Model extends SENE_Model{
   }
 
   public function get($d_kabkota_id="",$d_kecamatan_id=""){
+    $this->db->cache_save=1;
     if(strlen($d_kabkota_id)>0 && $d_kabkota_id>0) $this->db->where("d_kabkota_id",$d_kabkota_id);
     if(strlen($d_kecamatan_id)>0 && $d_kecamatan_id>0) $this->db->where("d_kecamatan_id",$d_kecamatan_id);
     $this->db->order_by("nama","asc");
@@ -52,11 +53,13 @@ class D_KodePos_Model extends SENE_Model{
   }
 
   public function getById($id){
+    $this->db->cache_save=1;
     $this->db->where("id",$id);
     return $this->db->get_first();
   }
 
   public function getAll($page='0',$pagesize='10',$sortCol="id",$sortDir="asc",$keyword=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id",'id',0);
     $this->db->select_as("$this->tbl2_as.nama",'kabkota',0);
     $this->db->select_as("$this->tbl3_as.nama",'kecamatan',0);
@@ -73,6 +76,7 @@ class D_KodePos_Model extends SENE_Model{
     return $this->db->get("object",0);
   }
   public function countAll($keyword=""){
+    $this->db->cache_save=1;
     $this->db->flushQuery();
 		$this->db->select_as("COUNT(*)","jumlah",0);
 		$this->db->from($this->tbl,$this->tbl_as);
@@ -87,6 +91,7 @@ class D_KodePos_Model extends SENE_Model{
   }
 
   public function getSearch($keyword=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id","id",0);
     $this->db->select_as("$this->tbl_as.kodepos","text",0);
     $this->db->from($this->tbl,$this->tbl_as);

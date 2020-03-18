@@ -17,6 +17,7 @@ class D_Provinsi_Model extends SENE_Model{
   }
 
   public function get($d_negara_nation_code){
+    $this->db->cache_save=1;
     $this->db->select_as("id","id",0);
     $this->db->select_as("nama","text",0);
     if(strlen($d_negara_nation_code)>0 && $d_negara_nation_code>0) $this->db->where("d_negara_nation_code",$d_negara_nation_code);
@@ -25,11 +26,13 @@ class D_Provinsi_Model extends SENE_Model{
   }
 
   public function getById($id){
+    $this->db->cache_save=1;
     $this->db->where("id",$id);
     return $this->db->get_first();
   }
 
   public function getAll($page='0',$pagesize='10',$sortCol="id",$sortDir="asc",$keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id",'id',0);
     $this->db->select_as("$this->tbl_as.d_negara_nation_code",'d_negara_nation_code',0);
     $this->db->select_as("$this->tbl_as.nama",'nama',0);
@@ -43,6 +46,7 @@ class D_Provinsi_Model extends SENE_Model{
     return $this->db->get("object",0);
   }
   public function countAll($keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->flushQuery();
 		$this->db->select_as("COUNT(*)","jumlah",0);
 		$this->db->from($this->tbl,$this->tbl_as);
@@ -67,6 +71,7 @@ class D_Provinsi_Model extends SENE_Model{
   }
 
   public function getSearch($nation_code,$negara_nama,$keyword=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id","id",0);
     $this->db->select_as("$this->tbl_as.nama","text",0);
     $this->db->from($this->tbl,$this->tbl_as);

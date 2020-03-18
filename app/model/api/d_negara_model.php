@@ -37,16 +37,19 @@ class D_Negara_Model extends SENE_Model{
   }
 
   public function getById($nation_code){
+    $this->db->cache_save=1;
     $this->db->where("nation_code",$nation_code);
     return $this->db->get_first();
   }
 
   public function getByNationCode($nation_code){
+    $this->db->cache_save=1;
     $this->db->where("nation_code",$nation_code);
     return $this->db->get_first();
   }
 
   public function getAll($page='0',$pagesize='10',$sortCol="nation_code",$sortDir="asc",$keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.nation_code",'nation_code',0);
     $this->db->select_as("$this->tbl_as.iso2",'iso2',0);
     $this->db->select_as("$this->tbl_as.nama",'nama',0);
@@ -64,6 +67,7 @@ class D_Negara_Model extends SENE_Model{
     return $this->db->get("object",0);
   }
   public function countAll($keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->flushQuery();
 		$this->db->select_as("COUNT(*)","jumlah",0);
 		$this->db->from($this->tbl,$this->tbl_as);

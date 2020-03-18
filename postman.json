@@ -75,12 +75,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}api/negara/get/",
+							"raw": "{{base_url}}api/provinsi/get/",
 							"host": [
 								"{{base_url}}api"
 							],
 							"path": [
-								"negara",
+								"provinsi",
 								"get",
 								""
 							]
@@ -140,14 +140,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}api/negara/get/",
+							"raw": "{{base_url}}api/kabkota/get/?d_provinsi_id=2",
 							"host": [
 								"{{base_url}}api"
 							],
 							"path": [
-								"negara",
+								"kabkota",
 								"get",
 								""
+							],
+							"query": [
+								{
+									"key": "d_provinsi_id",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -205,14 +211,20 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}api/negara/get/",
+							"raw": "{{base_url}}api/kecamatan/get/?d_kabkota_id=14",
 							"host": [
 								"{{base_url}}api"
 							],
 							"path": [
-								"negara",
+								"kecamatan",
 								"get",
 								""
+							],
+							"query": [
+								{
+									"key": "d_kabkota_id",
+									"value": "14"
+								}
 							]
 						}
 					},
@@ -252,12 +264,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}api/kecamatan/",
+							"raw": "{{base_url}}api/kelurahan/",
 							"host": [
 								"{{base_url}}api"
 							],
 							"path": [
-								"kecamatan",
+								"kelurahan",
 								""
 							]
 						}
@@ -341,7 +353,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}api/kodepos/get/?d_kecamatan_id=1",
+							"raw": "{{base_url}}api/kodepos/get/?keyword=Soreang",
 							"host": [
 								"{{base_url}}api"
 							],
@@ -352,8 +364,8 @@
 							],
 							"query": [
 								{
-									"key": "d_kecamatan_id",
-									"value": "1"
+									"key": "keyword",
+									"value": "Soreang"
 								}
 							]
 						}

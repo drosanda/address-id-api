@@ -51,6 +51,7 @@ class D_Kecamatan_Model extends SENE_Model{
   }
 
   public function getAll($page='0',$pagesize='10',$sortCol="id",$sortDir="asc",$keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id",'id',0);
     $this->db->select_as("$this->tbl_as.d_kabkota_id",'d_kabkota_id',0);
     $this->db->select_as("$this->tbl_as.nama",'nama',0);
@@ -64,6 +65,7 @@ class D_Kecamatan_Model extends SENE_Model{
     return $this->db->get("object",0);
   }
   public function countAll($keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->flushQuery();
 		$this->db->select_as("COUNT(*)","jumlah",0);
 		$this->db->from($this->tbl,$this->tbl_as);
@@ -76,6 +78,7 @@ class D_Kecamatan_Model extends SENE_Model{
   }
 
   public function getSearch($d_kabkota_id,$kabkota_nama,$keyword=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id","id",0);
     $this->db->select_as("$this->tbl_as.nama","text",0);
     $this->db->from($this->tbl,$this->tbl_as);

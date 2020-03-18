@@ -29,12 +29,14 @@ class D_KabKota_Model extends SENE_Model{
   }
 
   public function get($d_provinsi_id){
+    $this->db->cache_save=1;
     if(strlen($d_provinsi_id)>0 && $d_provinsi_id>0) $this->db->where("d_provinsi_id",$d_provinsi_id);
     $this->db->order_by("nama","asc");
     return $this->db->get();
   }
 
   public function getById($id){
+    $this->db->cache_save=1;
     $this->db->where("id",$id);
     return $this->db->get_first();
   }
@@ -52,6 +54,7 @@ class D_KabKota_Model extends SENE_Model{
 
 
   public function getAll($page='0',$pagesize='10',$sortCol="id",$sortDir="asc",$keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id",'id',0);
     $this->db->select_as("$this->tbl_as.d_provinsi_id",'d_provinsi_id',0);
     $this->db->select_as("$this->tbl_as.nama",'nama',0);
@@ -65,6 +68,7 @@ class D_KabKota_Model extends SENE_Model{
     return $this->db->get("object",0);
   }
   public function countAll($keyword="",$is_active=""){
+    $this->db->cache_save=1;
     $this->db->flushQuery();
 		$this->db->select_as("COUNT(*)","jumlah",0);
 		$this->db->from($this->tbl,$this->tbl_as);
@@ -84,6 +88,7 @@ class D_KabKota_Model extends SENE_Model{
   }
 
   public function getSearch($d_provinsi_id,$provinsi_nama,$keyword=""){
+    $this->db->cache_save=1;
     $this->db->select_as("$this->tbl_as.id","id",0);
     $this->db->select_as("$this->tbl_as.nama","text",0);
     $this->db->from($this->tbl,$this->tbl_as);
