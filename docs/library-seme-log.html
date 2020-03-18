@@ -1,0 +1,68 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seme Log - Library | Seme Framework Documentation</title>
+    <meta name="description" content="Seme Log library documentation for Seme Framework"/>
+    <meta name="author" content="drosanda"/>
+    <link rel="icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css" />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class=" ">
+      <div class="row container">
+        <div class="large12 columns">
+          <ul class="breadcrumbs">
+            <li class=""><a href="/">Home</a></li>
+            <li class=""><a href="library.html">Library</a></li>
+            <li class="unavailable">Seme Log</li>
+          </ul>
+        </div>
+        <div class="large12 columns">
+          <h1 class="">Seme Log</h1>
+					<p>Seme Log is library for logging some text or result into file log. Seme log will create and put new file seme.log in root project or in app/cache/seme.log depending directory access on your script.</p>
+					<hr>
+					<h2>How to use</h2>
+					<p>First we have to loaded library by using library loaded:</p>
+					<pre>$this->lib('seme_log');</pre>
+					<p>You can put libary loader in constructor of controller or on each method in your controller.</p>
+          <h2>Basic Usage</h2>
+          <p>Seme Log only have one method called <b>write</b> for writting log into file log. Here is the example:</p>
+          <pre>Class Product extends SEME_Controller{
+  public function __construct(){
+    $this->lib('seme_log');
+  }
+  public function index(){
+    $this->seme_log->write("Produk::index called");
+  }
+}</pre>
+          <p>And then this is the result if we open file seme.log</p>
+          <pre>2019-08-06 10:22:22 - Produk::index called
+2019-08-06 10:22:25 - Produk::index called
+</pre>
+          <h3>Advanced Result</h3>
+          <p>If you used *nix Operating System, you can tail -f seme.log for realtime view log.</p>
+				</div>
+      </div>
+      <div class="row footer">
+        <div class="large-12 columns">
+          <p class="">Copyright &copy; 2014-2019, Daeng Rosanda, S.Kom. Last updated on 05 September 2019.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

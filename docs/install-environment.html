@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installing Environment | Seme Framework Documentation</title>
+		<link rel="icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css" />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class=" ">
+      <div class="row container">
+        <div class="large12 columns">
+          <ul class="breadcrumbs">
+            <li class=""><a href="/">Home</a></li>
+            <li class=""><a href="/install.html">Install</a></li>
+            <li class="unavailable">Environment</li>
+          </ul>
+        </div>
+        <div class="large12 columns">
+          <h1 class="">Installing Environment</h1>
+          <p>Seme Framework has been tested on production web server such as Apache, litespeed, and the nginx. But in development mode, Seme Framework only tested on XAMPP environment. So, if problem occured, you can open issue on Seme Framework Github page.</p>
+					<h2>Apache Environment</h2>
+					<p>In Apache production environment, you have to override some code such as <code>app/config/config.php</code> and <code>.htaccess</code> file if a problem occured. Almost in all Apache production, the value of <b>$sene_method</b> in <code>app/config/config.php</code> value is REQUEST_URI.</p>
+					<h3>Sub Directory Apache Environment</h3>
+					<p>Seme Framework mostly running well in root directory or subdirectory. But in some cases, you need to define <code>rewrite_base</code> in <code>.htaccess</code> file. Here is the example if seme framework put on <b>foo</b> directory.</p>
+					<pre>RewriteEngine on
+RewriteBase /foo
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L] 
+					</pre>
+          <h2>Nginx Environment</h2>
+					<p>Seme Framework running well on Nginx environment too. Here is some configuration if you need it. You can get all of code or partially. The below Nginx configuration obtained from working Seme Framework in Centos 7.</p>
+					<pre> server {
+listen 80;
+#listen 443 ssl;
+server_name example.com www.example.com;
+
+root /home/ec2-user/sites/example.com/;
+#ssl_certificate /etc/nginx/ssl/example.crt;
+#ssl_certificate_key /etc/nginx/ssl/example.key;
+
+index index.php; #this is important
+location / {
+  #autoindex on;
+	try_files $uri $uri/ /index.php?args; #this is uri routing like in apache rewrite
+}
+location ~ .php$ {
+include fastcgi.conf;
+fastcgi_pass 127.0.0.1:9000;
+#fastcgi_pass unix:/var/run/php7-fpm.sock;
+fastcgi_index index.php; #this is important too
+fastcgi_param ENVIRONMENT production;
+}
+					}
+					</pre>
+					
+          <h2>XAMPP Environment</h2>
+					<p>In XAMPP environment, Seme framework are running well to, but we have different code in <code>app/config/config.php</code> and <code>.htaccess</code> file. The value of <b>$sene_method</b> in <code>app/config/config.php</code> value is PATH_INFO. And then if you using seme framework on subdirectory you can eliminate RewriteBase on <code>.htaccess</code>.</p>
+					<pre>RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA] 
+					</pre>
+					<p>Thats it.</p>
+        </div>
+      </div>
+      <div class="row footer">
+        <div class="large-12 columns">
+          <p class="">Copyright &copy; 2014-2018, Daeng Rosanda, S.Kom. Last updated on 7 Ferbruary 2018.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

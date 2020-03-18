@@ -1,0 +1,78 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model::composite_create Method | Seme Framework Documentation</title>
+		<link rel="icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css" />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class=" ">
+      <div class="row container">
+        <div class="large12 columns">
+          <ul class="breadcrumbs">
+            <li class=""><a href="/">Home</a></li>
+            <li class=""><a href="/model.html">Model</a></li>
+            <li class="unavailable">composite_create method</li>
+          </ul>
+        </div>
+        <div class="large12 columns">
+          <h1 class="">Composite Create Method</h1>
+					<p>Composite Create is for building multiple join condition for table that have two or more primary key.</p>
+					<p>This method can be used properly with <a href="/model-join_composite.html">join_composite</a> method, for joining the table .</p>
+
+					<pre>class Blog_Model extends SENE_Model{
+	var $tbl = 'd_order';
+	var $tbl_as = 'dor';
+var $tbl2 = 'b_seller';
+var $tbl2_as = 'bs';
+	public function __construct(){
+		parent::__construct();
+		$this->db->from($this->tbl,$this->tbl_as);
+	}
+  private function __joinTbl2(){
+    $composites = array();
+    $composites[] = $this->db->composite_create("$this->tbl_as.nation_code","=","$this->tbl_as.nation_code");
+    $composites[] = $this->db->composite_create("$this->tbl_as.b_seller_id","=","$this->tbl_as.id");
+    return $composites;
+  }
+  public function getByOrderId($id){
+    $this->db->join_composite($this->tbl2,$this->tbl2_as,$this->__joinTbl2(),"inner");
+    $this->db->where_as("$this->tbl_as.id",$this->db->esc($id));
+    return $this->db->get_first();
+  }
+}
+					</pre>
+					<h2>Parameters</h2>
+					<p>composite_create method has 3 required parameters and will returned join composite object</p>
+					<h3>COLUMN_NAME_1</h3>
+					<p>Column name for first table.</p>
+					<h3>Relational Operator</h3>
+					<p>Value required for condition, value consists of "=","<>".</p>
+					<h3>COLUMN_NAME_1</h3>
+					<p>Column name for second table.</p>
+					<h3>Relational Operator</h3>
+        </div>
+      </div>
+      <div class="row footer">
+        <div class="large-12 columns">
+          <p class="">Copyright &copy; 2014-2018, Daeng Rosanda, S.Kom. Last updated on 18 November 2018.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

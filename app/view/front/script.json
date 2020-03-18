@@ -1,0 +1,5 @@
+[
+  "<script src=\"{{base_url}}skin/front/js/vendor/jquery.min.js\"><\/script>",
+  "<script src=\"{{base_url}}skin/front/js/bootstrap.min.js\"><\/script>",
+  "<script src=\"{{base_url}}skin/front/js/app.js\"><\/script>"
+]

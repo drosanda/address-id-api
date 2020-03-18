@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "1360c0bf-dbd0-4027-a582-20e57eac1ddc",
+		"name": "TCA Alamat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Negara",
+			"item": [
+				{
+					"name": "List (datatables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/negara/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"negara",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/negara/get/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"negara",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Provinsi",
+			"item": [
+				{
+					"name": "List (datatables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/provinsi/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"provinsi",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/negara/get/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"negara",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5fdebec-c0bd-474b-aa09-a88fa865b462",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5922755-904f-4f86-9c96-747b076fe9c6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Kabupaten / Kota",
+			"item": [
+				{
+					"name": "List (datatables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/kabkota/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"kabkota",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/negara/get/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"negara",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5fdebec-c0bd-474b-aa09-a88fa865b462",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5922755-904f-4f86-9c96-747b076fe9c6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Kecamatan",
+			"item": [
+				{
+					"name": "List (datatables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/kecamatan/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"kecamatan",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/negara/get/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"negara",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5fdebec-c0bd-474b-aa09-a88fa865b462",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5922755-904f-4f86-9c96-747b076fe9c6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Desa / Kelurahan",
+			"item": [
+				{
+					"name": "List (datatables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/kecamatan/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"kecamatan",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/kelurahan/get/?d_kecamatan_id=1",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"kelurahan",
+								"get",
+								""
+							],
+							"query": [
+								{
+									"key": "d_kecamatan_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5fdebec-c0bd-474b-aa09-a88fa865b462",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5922755-904f-4f86-9c96-747b076fe9c6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Kodepos",
+			"item": [
+				{
+					"name": "List (datatables)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/kodepos/",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"kodepos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}api/kodepos/get/?d_kecamatan_id=1",
+							"host": [
+								"{{base_url}}api"
+							],
+							"path": [
+								"kodepos",
+								"get",
+								""
+							],
+							"query": [
+								{
+									"key": "d_kecamatan_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a5fdebec-c0bd-474b-aa09-a88fa865b462",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5922755-904f-4f86-9c96-747b076fe9c6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

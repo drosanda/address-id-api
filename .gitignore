@@ -1,0 +1,4 @@
+.DS_Store
+*.DS_Store
+app/cache/
+!app/cache/index.php

@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Get Method | Seme Framework Documentation</title>
+		<link rel="icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css" />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class=" ">
+      <div class="row container">
+        <div class="large12 columns">
+          <ul class="breadcrumbs">
+            <li class=""><a href="/">Home</a></li>
+            <li class=""><a href="/model.html">Model</a></li>
+            <li class="unavailable">Get Method</li>
+          </ul>
+        </div>
+        <div class="large12 columns">
+          <h1 class="">Get Method</h1>
+					<p>Get method is part of database class builder for filtering result in array of array or array of object.</p>
+					<h2>Parameters</h2>
+					<p>Group By method has 2 parameter</p>
+					<pre>$this->db->get_first([string $result_type, [bool $is_debug]]): mixed</pre>
+          <h3>$result_type</h3>
+          <p><b>Result type</b> consist of array and object, if value has "array" the result will be array of array otherwise will returned array of object.</p>
+					<h2>Example usage</h2>
+					<p>Here is the examples using select method. See the first of this page for full example.</p>
+          <h3>Basic Usage</h3>
+          <p>For example we assumed want to add new data in blog table. First, in the model:</p>
+          <pre>class Blog_Model extends SENE_Model{
+  var $tbl = 'blog';
+  var $tbl_as = 'b';
+  public function __construct(){
+	 parent::__construct();
+  }
+  public function getList($id){
+    $this->db->select("id");
+    $this->db->select("title");
+    $this->db->select("content");
+    $this->db->from($this->tbl,$this->tbl_as);
+    return $this->db->get();
+  }
+  public function getListArray(){
+    $this->db->select("id");
+    $this->db->select("title");
+    $this->db->select("content");
+    $this->db->from($this->tbl,$this->tbl_as);
+    return $this->db->get('array');
+  }
+  public function getListDebugQuery($id){
+    $this->db->select("id");
+    $this->db->select("title");
+    $this->db->select("content");
+    $this->db->from($this->tbl,$this->tbl_as);
+    return $this->db->get('array',1);
+  }
+}</pre>
+        </div>
+      </div>
+      <div class="row footer">
+        <div class="large-12 columns">
+          <p class="">Copyright &copy; 2014-2019, Daeng Rosanda, S.Kom. Last updated on 07 Juli 2019.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controller: Using Session | Seme Framework Documentation</title>
+		<link rel="icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:700|Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css" />
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class=" ">
+      <div class="row container">
+        <div class="large12 columns">
+          <ul class="breadcrumbs">
+            <li class=""><a href="/">Home</a></li>
+            <li class=""><a href="/controller.html">Controller</a></li>
+            <li class="unavailable">Using Session</li>
+          </ul>
+        </div>
+        <div class="large12 columns">
+          <h1 class="">Controller: Using Session</h1>
+					<p>Seme Framework comes with bultin session manager which stored to $_SESSION array with randomize string that define through <a href="/config-session.html">configuration</a>. Method <code>setKey()</code> from Sene_controller allowed you to pass array of object or objects to save in session. And Method <code>getKey()</code> allowed to get any stored value to session. Here is the example</p>
+					<pre>class Home extends Sene_Controller{
+	public function __construct(){
+		parent::__construct();
+	}
+	private funtion __init(){
+		$data = array();
+		$sess = $this->getKey();
+		if(!isset($sess->user_login)) $sess->user_login = 0;
+		if(!isset($sess->user)) $sess->user = new stdClass();
+		if(isset($sess->user->id)) $sess->user_login = 1;
+		$this->setKey($sess);
+		$data['sess'] = $sess;
+		return $data;
+	}
+	public function index(){
+		$data = $this->__init();
+	}
+	public function set_logged_in(){
+		$sess = $this->getKey();
+		if(!isset($sess->user_login)) $sess->user_login = 1;
+		if(!isset($sess->user)) $sess->user = new stdClass();
+		if(!isset($sess->user->id)) $sess->user->id = 1000;
+		$this->setKey($sess);
+	}
+	public function set_logged_out(){
+		$sess = $this->getKey();
+		if(!isset($sess->user_login)) $sess->user_login = 0;
+		if(!isset($sess->user)) $sess->user = new stdClass();
+		if(!isset($sess->user->id)) $sess->user->id = 1000;
+		unset($sess->user->id);
+		$this->setKey($sess);
+	}
+	
+}
+					</pre>
+        </div>
+      </div>
+      <div class="row footer">
+        <div class="large-12 columns">
+          <p class="">Copyright &copy; 2014-2018, Daeng Rosanda, S.Kom. Last updated on 7 Ferbruary 2018.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

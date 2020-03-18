@@ -1,0 +1,7 @@
+[
+	"<link rel=\"manifest\" href=\"manifest.json\" \/>",
+	"<link rel=\"stylesheet\" href=\"{{base_url}}skin/front/css/font-awesome.min.css\" \/>",
+	"<link rel=\"stylesheet\" href=\"{{base_url}}skin/front/css/bootstrap.min.css\" \/>",
+	"<link rel=\"stylesheet\" href=\"{{base_url}}skin/front/css/bootstrap-theme.min.css\" \/>",
+	"<link rel=\"stylesheet\" href=\"{{base_url}}skin/front/css/app.css\" \/>"
+]

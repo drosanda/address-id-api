@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="index.php" backupGlobals="false" backupStaticAttributes="false" colors= "true" convertErrorsToExceptions= "true" convertNoticesToExceptions= "true" convertWarningsToExceptions= "true" processIsolation= "false" stopOnFailure= "false" syntaxCheck= "false">
+  <php>
+    <server name='HTTP_HOST' value='http://localhost' />
+    <server name='SEME_ERR_BYPASS' value='1' />
+  </php>
+  <testsuites>
+    <testsuite name="Test Controllers">
+      <directory>app/controller/</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
