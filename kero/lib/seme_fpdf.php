@@ -338,7 +338,8 @@ class Seme_FPDF extends FPDF {
 		$barChar['%'] = 'nnnwnwnwn';
 
 		$this->SetFont('Arial','',10);
-		$this->Text($xpos, $ypos + $height + 4, $code);
+		//$this->Text($xpos, $ypos + $height + 4, $code);
+		//$this->Cell($xpos, $ypos + $height + 4,$code,0,"C");
 		$this->SetFillColor(0);
 
 		$code = '*'.strtoupper($code).'*';
