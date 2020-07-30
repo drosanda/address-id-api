@@ -111,4 +111,15 @@ class kodepos extends JI_Controller{
     $data = $this->dkm->getSearch($keyword);
     $this->__json_out($data);
   }
+  public function getbyid(){
+		$this->status = 200;
+		$this->message = 'Berhasil';
+    $nation_code = $this->input->post("nation_code");
+		$d_kabkota_id = $this->input->request("d_kabkota_id");
+		if(strlen($d_kabkota_id)==0 || empty($d_kabkota_id)) $d_kabkota_id="";
+    $d_kecamatan_id = $this->input->request("d_kecamatan_id");
+		if(strlen($d_kecamatan_id)==0 || empty($d_kecamatan_id)) $d_kecamatan_id="";
+    $data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
+    $this->__json_out($data);
+  }
 }

@@ -52,6 +52,19 @@ class D_KodePos_Model extends SENE_Model{
     return $this->db->get();
   }
 
+  public function getByKabKotaIdKecamatanId($d_kabkota_id,$d_kecamatan_id){
+    $this->db->cache_save=1;
+    $this->db->where("d_kabkota_id",$d_kabkota_id);
+    $this->db->where("d_kecamatan_id",$d_kecamatan_id);
+    return $this->db->get('',0);
+  }
+
+  public function getByKecamatanId($d_kecamatan_id){
+    $this->db->cache_save=1;
+    $this->db->where("d_kecamatan_id",$d_kecamatan_id);
+    return $this->db->get();
+  }
+
   public function getById($id){
     $this->db->cache_save=1;
     $this->db->where("id",$id);
