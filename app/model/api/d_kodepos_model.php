@@ -102,6 +102,8 @@ class D_KodePos_Model extends SENE_Model{
       $this->db->where_as("$this->tbl2_as.nama",($keyword),"OR","LIKE%%",0,0);
       $this->db->where_as("$this->tbl3_as.nama",($keyword),"OR","LIKE%%",0,1);
     }
+    $this->db->order_by("$this->tbl2_as.nama","asc");
+    $this->db->order_by("$this->tbl3_as.nama","asc");
     $this->db->order_by("$this->tbl_as.kodepos","asc");
     return $this->db->get('',0);
   }

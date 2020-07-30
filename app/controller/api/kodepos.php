@@ -10,7 +10,7 @@ class kodepos extends JI_Controller{
 	public function index(){
 		$d = $this->__init();
 		$data = array();
-		
+
 		$draw = $this->input->post("draw");
 		$sval = $this->input->post("search");
 		$sSearch = $this->input->post("sSearch");
@@ -76,7 +76,7 @@ class kodepos extends JI_Controller{
 		$another = array();
 		$this->__jsonDataTable($ddata,$dcount);
 	}
-	
+
 	public function detail($id){
 		$id = (int) $id;
 		$d = $this->__init();
@@ -99,41 +99,6 @@ class kodepos extends JI_Controller{
 			$this->message = 'No Data';
 			$this->__json_out($data);
 			die();
-		}
-		$this->__json_out($data);
-	}
-	
-	public function hapus($id){
-		$id = (int) $id;
-		$d = $this->__init();
-		$data = array();
-		if($id<=0){
-			$this->status = 500;
-			$this->message = 'Invalid ID';
-			$this->__json_out($data);
-			die();
-		}
-		if(!$this->admin_login && empty($id)){
-			$this->status = 400;
-			$this->message = 'Harus login';
-			header("HTTP/1.0 400 Harus login");
-			$this->__json_out($data);
-			die();
-		}
-		$kategori = $this->dkm->getById($id);
-		if(!isset($kategori->id)){
-			$this->status = 520;
-			$this->message = 'ID not found or has been deleted';
-			$this->__json_out($data);
-			die();
-		}
-		$res = $this->dkm->del($id);
-		if($res){
-			$this->status = 200;
-			$this->message = 'Berhasil';
-		}else{
-			$this->status = 902;
-			$this->message = 'Tidak dapat menghapus cabang';
 		}
 		$this->__json_out($data);
 	}
