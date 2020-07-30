@@ -1,2 +1,2 @@
-config.php
-database.php
+staging.php
+production.php
