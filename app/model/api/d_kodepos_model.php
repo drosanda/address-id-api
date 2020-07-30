@@ -54,6 +54,8 @@ class D_KodePos_Model extends SENE_Model{
 
   public function getByKabKotaIdKecamatanId($d_kabkota_id,$d_kecamatan_id){
     $this->db->cache_save=1;
+    $this->db->select_as("$this->tbl_as.id","id",0);
+    $this->db->select_as("$this->tbl_as.kodepos","text",0);
     $this->db->where("d_kabkota_id",$d_kabkota_id);
     $this->db->where("d_kecamatan_id",$d_kecamatan_id);
     return $this->db->get('',0);
