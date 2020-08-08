@@ -105,17 +105,34 @@ class kodepos extends JI_Controller{
   public function get(){
 		$this->status = 200;
 		$this->message = 'Berhasil';
-    $nation_code = $this->input->post("nation_code");
+		$d_kabkota_id = (int) $this->input->request("d_kabkota_id");
+		if($d_kabkota_id<=0) $d_kabkota_id="";
+    $d_kecamatan_id = (int) $this->input->request("d_kecamatan_id");
+		if($d_kabkota_id<=0) $d_kecamatan_id="";
+		if(strlen($d_kabkota_id)<=0 && strlen($d_kecamatan_id)<=0){
+			$this->status = 200;
+			$this->message = 'ID kecamatan dan ID kabkota tidak valid';
+			$data = array();
+		}else{
+			$data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
+		}
+    $this->__json_out($data);
+  }
+  public function search(){
+		$this->status = 200;
+		$this->message = 'Berhasil';
     $keyword = $this->input->request("keyword");
-		if(empty($keyword)) $keyword="";
+		$l = mb_strlen($keyword);
+		if($l<=0 && $l>32){
+			$keyword = '';
+		}
     $data = $this->dkm->getSearch($keyword);
     $this->__json_out($data);
   }
   public function getbyid(){
 		$this->status = 200;
 		$this->message = 'Berhasil';
-    $nation_code = $this->input->post("nation_code");
-		$d_kabkota_id = $this->input->request("d_kabkota_id");
+    $d_kabkota_id = $this->input->request("d_kabkota_id");
 		if(strlen($d_kabkota_id)==0 || empty($d_kabkota_id)) $d_kabkota_id="";
     $d_kecamatan_id = $this->input->request("d_kecamatan_id");
 		if(strlen($d_kecamatan_id)==0 || empty($d_kecamatan_id)) $d_kecamatan_id="";
