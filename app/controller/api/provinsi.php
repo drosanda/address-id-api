@@ -10,7 +10,7 @@ class Provinsi extends JI_Controller{
 	public function index(){
 		$d = $this->__init();
 		$data = array();
-		
+
 		$draw = $this->input->post("draw");
 		$sval = $this->input->post("search");
 		$sSearch = $this->input->post("sSearch");
@@ -75,15 +75,15 @@ class Provinsi extends JI_Controller{
 		$another = array();
 		$this->__jsonDataTable($ddata,$dcount);
 	}
-	
+
 	public function detail($id){
 		$id = (int) $id;
 		$d = $this->__init();
 		$data = array();
-		
+
 		$this->status = 200;
 		$this->message = 'Berhasil';
-		$data = $this->acm->getById($id);
+		$data = $this->dpm->getById($id);
 		if(!isset($data->id)){
 			$data = new stdClass();
 			$this->status = 441;
@@ -93,7 +93,7 @@ class Provinsi extends JI_Controller{
 		}
 		$this->__json_out($data);
 	}
-	
+
   public function get(){
 		$this->status = 200;
 		$this->message = 'Berhasil';
