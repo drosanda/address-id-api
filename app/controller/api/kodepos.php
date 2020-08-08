@@ -132,11 +132,19 @@ class kodepos extends JI_Controller{
   public function getbyid(){
 		$this->status = 200;
 		$this->message = 'Berhasil';
-    $d_kabkota_id = $this->input->request("d_kabkota_id");
+    $d_kabkota_id = (int) $this->input->request("d_kabkota_id");
 		if(strlen($d_kabkota_id)==0 || empty($d_kabkota_id)) $d_kabkota_id="";
-    $d_kecamatan_id = $this->input->request("d_kecamatan_id");
+    $d_kecamatan_id = (int) $this->input->request("d_kecamatan_id");
 		if(strlen($d_kecamatan_id)==0 || empty($d_kecamatan_id)) $d_kecamatan_id="";
     $data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
+    $this->__json_out($data);
+  }
+
+  public function detail(){
+		$this->status = 200;
+		$this->message = 'Berhasil';
+    $d_kodepos_id = (int) $this->input->request("d_kodepos_id");
+		$data = $this->dkm->getById($d_kodepos_id);
     $this->__json_out($data);
   }
 }
