@@ -124,9 +124,12 @@ class kodepos extends JI_Controller{
     $keyword = $this->input->request("keyword");
 		$l = mb_strlen($keyword);
 		if($l<=0 && $l>32){
-			$keyword = '';
+			$this->status = 900;
+			$this->message = 'keyword tidak valid';
+			$data = array();
+		}else{
+			$data = $this->dkm->getSearch($keyword);
 		}
-    $data = $this->dkm->getSearch($keyword);
     $this->__json_out($data);
   }
   public function getbyid(){
@@ -144,6 +147,11 @@ class kodepos extends JI_Controller{
 		$this->status = 200;
 		$this->message = 'Berhasil';
     $d_kodepos_id = (int) $this->input->request("d_kodepos_id");
+		if($d_kodepos_id<=0){
+			$this->status = 901;
+			$this->message = 'ID kecamatan dan ID kabkota tidak valid';
+			$data = array();
+		}
 		$data = $this->dkm->getById($d_kodepos_id);
     $this->__json_out($data);
   }
