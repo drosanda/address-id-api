@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="index.php" backupGlobals="false" backupStaticAttributes="false" colors= "true" convertErrorsToExceptions= "true" convertNoticesToExceptions= "true" convertWarningsToExceptions= "true" processIsolation= "false" stopOnFailure= "false" syntaxCheck= "false">
-  <php>
-    <server name='HTTP_HOST' value='http://localhost' />
-    <server name='SEME_ERR_BYPASS' value='1' />
-  </php>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  bootstrap="dev/test/SeneTestCase.php"
+  executionOrder="depends,defects"
+  forceCoversAnnotation="true"
+  beStrictAboutCoversAnnotation="true"
+  beStrictAboutOutputDuringTests="true"
+  beStrictAboutTodoAnnotatedTests="true"
+  failOnRisky="true"
+  failOnWarning="true"
+  verbose="true">
   <testsuites>
-    <testsuite name="Test Controllers">
-      <directory>app/controller/</directory>
+    <testsuite name="Dev">
+      <directory>dev/test</directory>
     </testsuite>
   </testsuites>
+
+  <coverage processUncoveredFiles="false">
+    <include>
+      <directory>kero/sine</directory>
+      <directory>app/view</directory>
+      <directory>app/model</directory>
+      <directory>app/controller</directory>
+    </include>
+  </coverage>
 </phpunit>
