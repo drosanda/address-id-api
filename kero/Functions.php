@@ -8,7 +8,7 @@
  * @param  string $url addtional url
  * @return string      full base url
  */
-function base_url($url="")
+function base_url($url='')
 {
     return $GLOBALS['SEMECFG']->baseurl.$url;
 }
@@ -17,7 +17,7 @@ function base_url($url="")
  * @param  string $url addtional url
  * @return string      full url
  */
-function base_url_admin($url="")
+function base_url_admin($url='')
 {
     return  $GLOBALS['SEMECFG']->baseurl.$GLOBALS['SEMECFG']->baseurl_admin.'/'.$url;
 }
@@ -68,7 +68,10 @@ function seme_error_handling($errno, $errstr, $error_file, $error_line)
         $backtraces = debug_backtrace();
         $bct = array();
         $fls = array();
-        //$fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php','runner_controller.php');
+
+        if(!defined('SEME_VERBOSE')){
+          $fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php','runner_controller.php');
+        }
 
         $ef = explode('/', str_replace('\\', '/', $error_file));
         if (isset($ef[count($ef)-1])) {
@@ -130,14 +133,16 @@ function seme_error_handling($errno, $errstr, $error_file, $error_line)
                 print 'Function: '.$e['function'].PHP_EOL;
             }
         }
-        print '=========== Seme Framework v'.SENE_VERSION.' ============'.PHP_EOL;
+        print '=========== Seme Framework v'.SEME_VERSION.' ============'.PHP_EOL;
         die();
     } else {
         header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
         $backtraces = debug_backtrace();
         $bct = array();
         $fls = array();
-        //$fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php');
+        if(!defined('SEME_VERBOSE')){
+          $fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php');
+        }
 
         $ef = explode('/', str_replace('\\', '/', $error_file));
         if (isset($ef[count($ef)-1])) {

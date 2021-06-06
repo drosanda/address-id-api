@@ -1,6 +1,28 @@
 <?php
 /**
- * Main Engine of seme framework
+ * @author: Daeng Rosanda
+ * @package SemeFramework
+ * @since SemeFramework 3.0.0
+ */
+
+/** CONSTANTS */
+if (!defined('TEM_ERR')) {
+  define('TEM_ERR', 'Error');
+}
+if (!defined('LBL_BASE_URL')) {
+  define('LBL_BASE_URL', '{{base_url}}');
+}
+if (!defined('LBL_BASE_URL_ADMIN')) {
+  define('LBL_BASE_URL_ADMIN', '{{base_url_admin}}');
+}
+if (!defined('LBL_CDN_URL')) {
+  define('LBL_CDN_URL', '{{cdn_url}}');
+}
+
+/**
+ * Main Engine Class of seme framework
+ *
+ * @codeCoverageIgnore
  */
 class SENE_Engine
 {
@@ -13,7 +35,6 @@ class SENE_Engine
     public $core_prefix = 'SM_';
     public $core_controller = '';
     public $core_model = '';
-    public $routes;
 
     public function __construct()
     {
@@ -22,33 +43,31 @@ class SENE_Engine
         $this->default = $this->config->controller_main;
         $this->notfound = $this->config->controller_404;
 
-        require_once $this->directories->kero_sine."SENE_Input.php";
-        require_once $this->directories->kero_sine."SENE_Controller.php";
-        require_once $this->directories->kero_sine."SENE_Model.php";
+        require_once $this->directories->kero_sine.'SENE_Input.php';
+        require_once $this->directories->kero_sine.'SENE_Controller.php';
+        require_once $this->directories->kero_sine.'SENE_Model.php';
 
         $rs = array();
         foreach ($this->config->routes as $key=>$val) {
-            $key = trim($key, "/");
-            $val = trim($val, "/");
+            $key = trim($key, '/');
+            $val = trim($val, '/');
             $rs[$key] = $val;
         }
         $this->config->routes = $rs;
 
         $sene_method = $this->config->method;
-        if (isset($_SERVER['argv'])) {
-            if (count($_SERVER['argv'])>1) {
-                $i=0;
-                $_SERVER[$sene_method] = '';
-                foreach ($_SERVER['argv'] as $argv) {
-                    $i++;
-                    if ($i==1) {
-                        continue;
-                    }
-                    $_SERVER[$sene_method] .= '/'.$argv;
+        if (isset($_SERVER['argv']) && count($_SERVER['argv'])>1) {
+            $i=0;
+            $_SERVER[$sene_method] = '';
+            foreach ($_SERVER['argv'] as $argv) {
+                $i++;
+                if ($i==1) {
+                    continue;
                 }
-                unset($i);
-                unset($argv);
+                $_SERVER[$sene_method] .= '/'.$argv;
             }
+            unset($i);
+            unset($argv);
         }
         unset($sene_method);
         self::$__instance = $this;
@@ -64,7 +83,7 @@ class SENE_Engine
     /**
      * Run the framework
      */
-    public function SENE_Engine()
+    public function run()
     {
         if (strlen($this->config->core_prefix)) {
             if (strlen($this->config->core_controller)) {
@@ -93,15 +112,15 @@ class SENE_Engine
 
     private function defaultController()
     {
-        $cname = $this->default."";
+        $cname = $this->default.'';
         require_once $this->directories->app_controller.$this->default.".php";
         $cname = new $cname();
         $cname->index();
     }
 
-    private function notFound($newpath="")
+    private function notFound($newpath='')
     {
-        $cname = $this->notfound."";
+        $cname = $this->notfound.'';
         if (file_exists($newpath.$this->notfound.".php")) {
             require_once($newpath.$this->notfound.".php");
         } else {
@@ -115,16 +134,15 @@ class SENE_Engine
     {
         if (count($path)>1) {
             $slug_parent = $path[1];
-            $slug_child = "";
+            $slug_child = '';
             if (isset($path[2])) {
                 $slug_child = $path[2];
             }
             $filename = realpath($this->directories->app_controller."cms_handler.php");
-            //die($filename);
             if (is_file($filename) && !empty($slug_parent)) {
                 require_once $filename;
                 $cname = basename($filename, ".php");
-                $cname = str_replace('-', '_', $cname);
+                $cname = strtr($cname,'-', '_');
                 if (class_exists($cname)) {
                     $cname = new $cname();
                     $func = "slugParent";
@@ -145,33 +163,31 @@ class SENE_Engine
         $target = '';
         $routes = $this->config->routes;
         foreach ($routes as $key=>$val) {
-            $key = strtolower(trim($key, "/"));
-            $val = strtolower(trim($val, "/"));
+            $key = strtolower(trim($key, '/'));
+            $val = strtolower(trim($val, '/'));
             $key = str_replace(array(':any', ':num'), array('[^/]+', '[0-9]+'), $key);
             if (preg_match('#^'.$key.'$#', $path, $matches)) {
                 $target = '/'.preg_replace('#^'.$key.'$#', $val, $path);
             }
         }
         if (!empty($target)) {
-            return explode("/", $target);
+            return explode('/', $target);
         }
         return $paths;
     }
-    
+
     private function newRouteFolder()
     {
-        $found=0;
         $sene_method = $this->config->method;
         if (isset($_SERVER[$sene_method])) {
             $path = $_SERVER[$sene_method];
-            $path = str_replace("//", "/", $path);
-            $path = explode("/", str_replace("//", "/", $path));
+            $path = strtr($path,'//', '/');
+            $path = explode('/', strtr($path,'//', '/'));
             $i=0;
             foreach ($path as $p) {
                 if (strlen($p)>0) {
                     $pos = strpos($p, '?');
                     if ($pos !== false) {
-                        //echo "pos: ".$pos;
                         unset($path[$i]);
                     }
                 }
@@ -182,12 +198,12 @@ class SENE_Engine
             if (!isset($path[1])) {
                 $path[1] = '';
             }
-            $path[1] = str_replace('-', '_', $path[1]);
-            if ((!empty($path[1]))) {
+            $path[1] = strtr($path[1],'-', '_');
+            if (!empty($path[1])) {
                 if ($path[1] == "admin" && $this->config->baseurl_admin !="admin") {
                     $newpath = realpath($this->directories->app_controller.$path[1]);
                     $this->notFound($newpath);
-                    die();
+                    return;
                 }
 
                 if ($this->config->baseurl_admin==$path[1]) {
@@ -206,7 +222,7 @@ class SENE_Engine
                     }
                     $dirn = $newpath.'/'.$path[2];
                     $filename = realpath($newpath.''.$path[2].".php");
-                    //var_dump($filename);
+
                     if (is_dir($dirn)) {
                         $dirn = rtrim($dirn, '/');
                         $dirn = $dirn.'/';
@@ -220,10 +236,10 @@ class SENE_Engine
                         if (is_file($filename)) {
                             require_once $filename;
                             $cname = basename($filename, ".php");
-                            $cname = str_replace('-', '_', $cname);
+                            $cname = strtr($cname,'-', '_');
                             if (!class_exists($cname, false)) {
                                 trigger_error("Unable to load class: $cname. Please check classname on controller is exists in ".$this->directories->app_controller.$path[2].'/'.$path[3].".php", E_USER_ERROR);
-                                die();
+                                return;
                             }
                             $cname = new $cname();
                             $func = "index";
@@ -234,7 +250,7 @@ class SENE_Engine
                                     $func = $path[4];
                                 }
                             }
-                            $func = str_replace('-', '_', $func);
+                            $func = strtr($func,'-', '_');
                             if (method_exists($cname, $func)) {
                                 $reflection = new ReflectionMethod($cname, $func);
                                 if (!$reflection->isPublic()) {
@@ -261,10 +277,10 @@ class SENE_Engine
                     } elseif (is_file($filename)) {
                         require_once $filename;
                         $cname = basename($filename, ".php");
-                        $cname = str_replace('-', '_', $cname);
+                        $cname = strtr($cname,'-', '_');
                         if (!class_exists($cname, false)) {
                             trigger_error("Unable to load class: $cname. Please check classname on controller is exists in ".$this->directories->app_controller." triggered ", E_USER_ERROR);
-                            die();
+                            return;
                         }
                         $cname = new $cname();
                         $func = "index";
@@ -275,7 +291,7 @@ class SENE_Engine
                                 $func = $path[3];
                             }
                         }
-                        $func = str_replace('-', '_', $func);
+                        $func = strtr($func,'-', '_');
                         if (method_exists($cname, $func)) {
                             $reflection = new ReflectionMethod($cname, $func);
                             if (!$reflection->isPublic()) {
@@ -297,7 +313,6 @@ class SENE_Engine
                             $this->notFound($newpath);
                         }
                     } else {
-                        //die("wdnlknl");
                         $this->notFound($newpath);
                     }
                 } else {
@@ -305,7 +320,7 @@ class SENE_Engine
                     if (is_file($filename)) {
                         include $filename;
                         $cname = basename($filename, ".php");
-                        $cname = str_replace('-', '_', $cname);
+                        $cname = strtr($cname,'-', '_');
                         if (class_exists($cname)) {
                             $cname = new $cname();
                             $func = "index";
@@ -316,7 +331,7 @@ class SENE_Engine
                                     $func = $path[2];
                                 }
                             }
-                            $func = str_replace('-', '_', $func);
+                            $func = strtr($func,'-', '_');
                             if (method_exists($cname, $func)) {
                                 $reflection = new ReflectionMethod($cname, $func);
                                 if (!$reflection->isPublic()) {
@@ -338,7 +353,6 @@ class SENE_Engine
                                 $this->notFound();
                             }
                         } else {
-                            //echo 'controller not found';
                             $this->notFound();
                         }
                     } else {
