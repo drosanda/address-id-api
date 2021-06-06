@@ -1,2 +1,11 @@
 .DS_Store
-*.DS_Store
+*DS_Store*
+vendor/*
+docs/*
+*.phpdoc
+*.phpdoc/*
+.phpdoc
+.scannerwork/*
+dev/logs/*
+clover.xml
+junit.xml
