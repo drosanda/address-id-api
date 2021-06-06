@@ -1,5 +1,22 @@
 language: php
 php:
- - '7.0'
- - '7.1'
- - '7.2'
+  - '7.2.22'
+  - '7.3.23'
+  - '7.4.15'
+before_script:
+  - mkdir -p /home/travis/build/drosanda/seme-framework/app/cache/
+  - chmod 775 /home/travis/build/drosanda/seme-framework/app/cache/
+  - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS seme_framework;'
+  - sudo mysql -u root --default-character-set=utf8 seme_framework < sql/seme_framework.sql
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
+    # - sonar-scanner
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - phpunit --configuration phpunit.xml --coverage-clover coverage.xml --log-junit junit.xml --testsuite Dev
+addons:
+  mariadb: '10.3'
+  sonarcloud:
+    organization: "drosanda"
+    token:
+      secure: "D27OPne2l2sRkNr0C7ODEXdivCTCzsKaNf5EKlWr1D4UTaLe9Cf9QyLnVHOPCEGed0l1oHJkslMOigpn45lU4mEV3s2q1Ehb9FpERJZMFL914xFdfVDQtsioHdUBMq81UlN5FW+uT89Gz+mZ38tFPohsS/+j1HGVFND8eDShi2+NTD8pYYeD/J+Zmnn5cYtu+sXKt8jmGKTY2TXcUrcozQZO4ezWyWg3Q9+elJLnRiyAvxxAsFBbo313e8q4AbFVmbCGTir1A3IaGqoncAKEQBv8mjNq+lETdjKwxsA/S0nOba3/EVTRYSH5kD+FFZVPdByPboUxC57URyBNSHwbnEdC5ENpMNNeAGa06EGXED/M9io+VeZlgtucaHiOSnTgXdV3KVztaDXNWwz2uzBH5HN6AFl3BJMBPf2Q9onxHmB+UqrfwjiSwvFzoqxmu6ltXs+4BPgY/TFV1MEyRweYdVpWuzvfgGs17+ByCc6PKYxyopFnCp7U3iTRwr/69xB/ejjEpfeF8DyBwbgF+eyf5EXFQ7lGHIdyhtnMxoEjqEj/ZRd7hzA8XZ0mjekG7NUNU4WMhp2sT9iyPaHobYOBTWzKT/PN1r0rDwOIlTXhQ/3zLAwf9ODfPxuj1Ox9+QjAxuucJCwE/y5l0Za+O0/2iP6ma9nWe31x2WwTYUS0yCQ=" # encrypted value of your token
