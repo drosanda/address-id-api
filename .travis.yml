@@ -15,4 +15,4 @@ script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - phpunit --configuration phpunit.xml --coverage-clover coverage.xml --log-junit junit.xml --testsuite Dev
 addons:
-  mariadb: '10.2'
+  mariadb: '10.3'
