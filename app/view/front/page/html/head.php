@@ -291,32 +291,16 @@ pre {
         "@type": "NewsArticle",
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://example.com/my-article.html"
+          "@id": "<?=base_url()?>"
         },
-        "headline": "My First AMP Article",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://example.com/article_thumbnail1.jpg",
-          "height": 800,
-          "width": 800
-        },
+        "headline": "Seme Indonesia Address Provider Documentation API",
         "datePublished": "2015-02-05T08:00:00+08:00",
         "dateModified": "2015-02-05T09:20:00+08:00",
         "author": {
           "@type": "Person",
-          "name": "John Doe"
+          "name": "Daeng Rosanda"
         },
-        "publisher": {
-          "@type": "Organization",
-          "name": "⚡ AMP Times",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://example.com/amptimes_logo.jpg",
-            "width": 600,
-            "height": 60
-          }
-        },
-        "description": "My first experience in an AMPlified world"
+        "description": "API Documentation for using Indonesian address provider"
       }
     </script>
 </head>
