@@ -1,5 +1,5 @@
 <?php
-require_once SEMEROOT."kero/lib/vendor/autoload.php";
+// require_once SEMEROOT."kero/lib/vendor/autoload.php";
 
 class Home extends JI_Controller{
 
