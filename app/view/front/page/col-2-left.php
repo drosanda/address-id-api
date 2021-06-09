@@ -1,20 +1,18 @@
 <?php
 //Example 1 column layout
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html amp lang="en">
 <?php $this->getThemeElement("page/html/head",$__forward); ?>
 <?php $this->getBodyBefore(); ?>
 <body class="">
-  <?php $this->getThemeElement("page/html/topbar",$__forward);?>
-  <div class="container">
-    <div class="row">
-      <!-- main content-->
-      <div class="col-md-12">
-        <?php $this->getThemeContent(); ?>
-      </div>
-      <!-- main content-->
-    </div>
+  <?php $this->getThemeElement("page/html/menu_left",$__forward);?>
+  <?php $this->getThemeElement("page/html/header",$__forward);?>
+
+  <div class="main-content">
+    <!-- main content-->
+    <?php $this->getThemeContent(); ?>
+    <!-- main content-->
   </div>
 
   <!--footer-->

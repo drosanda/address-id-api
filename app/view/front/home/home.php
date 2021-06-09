@@ -1,35 +1,158 @@
-<h1><a id="user-content-api-address-provider-id" class="anchor" aria-hidden="true" href="#api-address-provider-id"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>API Address Provider (ID)</h1>
-<p>Ready to use API provider for address options in Indonesian format. Created from Seme Framework version 3.1.</p>
-<h2><a id="user-content-version" class="anchor" aria-hidden="true" href="#version"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Version</h2>
-<p>Here is the version log:</p>
-<ul>
-<li>1.0.0 First Release</li>
-</ul>
-<h2><a id="user-content-instalation" class="anchor" aria-hidden="true" href="#instalation"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Instalation</h2>
-<p>Clone this repository
-<code>git clone https://github.com/drosanda/seme-indonesian-address-provider-api.git api-alamat</code></p>
-<h3><a id="user-content-importing-database" class="anchor" aria-hidden="true" href="#importing-database"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Importing database</h3>
-<p>Importing database from sql/tca_alamat.sql</p>
-<h3><a id="user-content-configuration" class="anchor" aria-hidden="true" href="#configuration"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration</h3>
-<p>For setup your site please create and adjust following files:</p>
-<ul>
-<li>app/config/config.php</li>
-</ul>
-<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-smi">$site</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>http://<span class="pl-pds">"</span></span><span class="pl-k">.</span><span class="pl-smi">$_SERVER</span>[<span class="pl-s"><span class="pl-pds">'</span>HTTP_HOST<span class="pl-pds">'</span></span>]<span class="pl-k">.</span><span class="pl-sr"><span class="pl-pds">"/</span>alamat<span class="pl-pds">/"</span></span>;</span>
-<span class="pl-s1"><span class="pl-smi">$sene_method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>PATH_INFO<span class="pl-pds">"</span></span>;<span class="pl-c"><span class="pl-c">//</span>REQUEST_URI,PATH_INFO,ORIG_PATH_INFO,</span></span></pre></div>
-<ul>
-<li>app/config/database.php</li>
-</ul>
-<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-smi">$db</span>[<span class="pl-s"><span class="pl-pds">'</span>host<span class="pl-pds">'</span></span>]  <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>;</span>
-<span class="pl-s1"><span class="pl-smi">$db</span>[<span class="pl-s"><span class="pl-pds">'</span>user<span class="pl-pds">'</span></span>]  <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>root<span class="pl-pds">"</span></span>;</span>
-<span class="pl-s1"><span class="pl-smi">$db</span>[<span class="pl-s"><span class="pl-pds">'</span>pass<span class="pl-pds">'</span></span>]  <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>;</span>
-<span class="pl-s1"><span class="pl-smi">$db</span>[<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>]  <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>tca_alamat<span class="pl-pds">"</span></span>;</span>
-<span class="pl-s1"><span class="pl-smi">$db</span>[<span class="pl-s"><span class="pl-pds">'</span>engine<span class="pl-pds">'</span></span>]<span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>mysqli<span class="pl-pds">"</span></span>; <span class="pl-c"><span class="pl-c">//</span>available mysql,mysqli,pdo</span></span></pre></div>
-<h2><a id="user-content-how-to-use" class="anchor" aria-hidden="true" href="#how-to-use"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to use</h2>
-<p>To use the API, you can open postman.json on this project directory using <a href="https://www.postman.com/downloads/" rel="nofollow">Postman</a>.</p>
-<h2><a id="user-content-data-source" class="anchor" aria-hidden="true" href="#data-source"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Data Source</h2>
-<p>Address and Location data obtained from <a href="https://github.com/bachors/kodepos-indonesia.sql">bachors</a>.</p>
-<h2><a id="user-content-license" class="anchor" aria-hidden="true" href="#license"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>License</h2>
-<p>Licensed under MIT License 2.0</p>
+<div class="section">
+  <div class="container">
+
+    <div class="">
+      <div class="column">
+        <div class="content">
+          <h1 id="home" class="is-size-1">Indonesian Address Provider <span>API</span></h1>
+          <p>
+            Indonesia has 5 levels of address types starting from the province, district or city, sub-district and finally the kelurahan (sub from sub-district).
+          </p>
+          <p>
+            This address types, sometimes confusing peoples if they are less aware of the surrounding area.
+          </p>
+          <p>
+            So, with from that problem we built solution for providing address to get matched content or nearly closed to exact address.
+          </p>
+          <hr>
+          <h2 id="keyfeature">Key Features</h2>
+          <p>
+            This API must be able to display 5 types of addresses based on the hierarchy plus the zipcode (postal code).
+          </p>
+          <hr>
+          <p>
+            <strong>Lightweight</strong>. This API was built from Seme Framework v4.0.0 (PHP MVC framework) that blazingly fast with simple codes.
+          </p>
+          <p>
+            <strong>RDBMS</strong>. You can played with the data sources, because its use common DB that used with PHP, like MySQL or MariaDB.
+          </p>
+          <p>
+            <strong>JSON</strong>. The API output has own standard result in json format that can be implemented to any applications.
+          </p>
+          <hr>
+
+          <h2 id="license">License</h2>
+          <p>
+            This API and Seme Framework are licensed under MIT.
+          </p>
+          <hr>
+
+          <h2 id="qna">Question and Answer</h2>
+          <p>
+            Feel free to ask me on my <a href="https://instagram.com/drosanda/" target="_blank">instagram</a>, <a href="https://facebook.com/drs11/" target="_blank">facebook</a>, or open an issue on <a href="https://github.com/drosanda/seme-indonesian-address-provider-api/issues" target="_blank">github</a>.
+          </p>
+          <hr>
+
+          <h2 id="resources">Resources</h2>
+          <p>
+            This API and pages source codes are available on <a href="" target="_blank">github</a>.
+          </p>
+          <hr>
+          <h2 id="gs">Getting Started</h2>
+          <p>This API is can be used for free but with no warranty. First thing first the base url of API is <code>https://alamat.thecloudalert.com/api/</code>.</p>
+          <p>The API endpoint should follow the base url before consumed.</p>
+          <h2 id="gs_provinsi">Get Provinces</h2>
+          <p>API endpoint for generating the list of provinces in Indonesia.</p>
+          <p><code>https://alamat.thecloudalert.com/api/provinsi/get/</code></p>
+          <p>And the example result is</p>
+          <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+    {
+      "id": "1",
+      "text": "Bali"
+    },
+    {
+      "id": "2",
+      "text": "Bangka Belitung"
+    }
+  ]
+}
+            </pre>
+            <h2 id="gs_kabkota">Get Cities</h2>
+            <p>API endpoint for getting the list of cities in Indonesia by province ID.</p>
+            <p><code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
+            <p>And the example result is</p>
+            <p><code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=1</code></p>
+            <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+    {
+      "id": "1",
+      "text": "Kabupaten Badung"
+    },
+    {
+      "id": "2",
+      "text": "Kabupaten Bangli"
+    }
+  ]
+}
+            </pre>
+            <h2 id="gs_kecamatan">Get Districts</h2>
+            <p>API endpoint for getting the list of districts in Indonesia by cities ID.</p>
+            <p><code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
+            <p>And the example result is</p>
+            <p><code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=1</code></p>
+            <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+    {
+      "id": "1",
+      "text": "Abiansemal"
+    },
+    {
+      "id": "2",
+      "text": "Kuta"
+    }
+  ]
+}
+            </pre>
+            <h2 id=gs_kelurahan>Get Sub Districts</h2>
+            <p>API endpoint for getting the list of sub districts in Indonesia by districts ID.</p>
+            <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+            <p>And the example result is</p>
+            <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
+            <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+    {
+      "id": "17",
+      "text": "Abiansemal"
+    },
+    {
+      "id": "18",
+      "text": "Angantaka"
+    }
+  ]
+}
+</pre>
+            <h2 id="gs_kodepos">Get Zip Codes</h2>
+            <p>API endpoint for getting the list of Zip Codes in Indonesia by cities ID and districts ID.</p>
+            <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+            <p>And the example result is</p>
+            <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p>
+            <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+    {
+      "id": "3719",
+      "text": "29871"
+    },
+    {
+      "id": "3720",
+      "text": "29872"
+    }
+  ]
+}
+            </pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

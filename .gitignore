@@ -9,3 +9,4 @@ docs/*
 dev/logs/*
 clover.xml
 junit.xml
+kero/lib/vendor/*
