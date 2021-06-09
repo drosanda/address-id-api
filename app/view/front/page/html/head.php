@@ -301,7 +301,7 @@ pre {
     padding: 0.75rem 0.5rem;
   }
   .content h1.is-size-1 {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
   }
   .content h1.is-size-1 span {
     font-size: 2.2rem;
