@@ -77,31 +77,6 @@ class kodepos extends JI_Controller{
 		$this->__jsonDataTable($ddata,$dcount);
 	}
 
-	public function detail($id){
-		$id = (int) $id;
-		$d = $this->__init();
-		$data = array();
-		if(!$this->admin_login && empty($id)){
-			$this->status = 400;
-			$this->message = 'Harus login';
-			header("HTTP/1.0 400 Harus login");
-			$this->__json_out($data);
-			die();
-		}
-		$pengguna = $d['sess']->admin;
-
-		$this->status = 200;
-		$this->message = 'Berhasil';
-		$data = $this->dkm->getById($id);
-		if(!isset($data->id)){
-			$data = new stdClass();
-			$this->status = 441;
-			$this->message = 'No Data';
-			$this->__json_out($data);
-			die();
-		}
-		$this->__json_out($data);
-	}
   public function get(){
 		$this->status = 200;
 		$this->message = 'Berhasil';
