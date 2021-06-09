@@ -1,0 +1,5 @@
+{
+    "require": {
+        "scrivo/highlight.php": "v9.18.1.6"
+    }
+}
