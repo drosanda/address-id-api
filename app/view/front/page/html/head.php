@@ -284,6 +284,30 @@ pre {
     white-space: pre;
     word-wrap: normal;
 }
+
+
+@media screen and (max-width: 1024px){
+  section, .section {
+    padding: 2.5rem 1.5rem;
+  }
+  .content h1.is-size-1 {
+    font-size: 2.2rem;
+    border-size: 0.09em;
+  }
+}
+
+@media screen and (max-width: 425px){
+  section, .section {
+    padding: 0.75rem 0.5rem;
+  }
+  .content h1.is-size-1 {
+    font-size: 3.5rem;
+  }
+  .content h1.is-size-1 span {
+    font-size: 2.2rem;
+    border-size: 0.08em;
+  }
+}
     </style>
     <script type="application/ld+json">
       {
