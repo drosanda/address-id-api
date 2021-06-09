@@ -284,7 +284,12 @@ pre {
     white-space: pre;
     word-wrap: normal;
 }
-
+code {
+    color: #ff3860;
+    font-size: .875em;
+    font-weight: 400;
+    padding: .25em .5em;
+}
 
 @media screen and (max-width: 1024px){
   section, .section {
