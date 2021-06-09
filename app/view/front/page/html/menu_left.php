@@ -22,13 +22,13 @@
           <a href="#gs_provinsi" on="tap:gs_provinsi.scrollTo">Province</a>
         </li>
         <li>
-          <a href="#gs_kabkota" on="tap:gs_kabkota.scrollTo">City (Kabupaten / Kota)</a>
+          <a href="#gs_kabkota" on="tap:gs_kabkota.scrollTo">City (<em>Kabupaten / Kota</em>)</a>
         </li>
         <li>
-          <a href="#gs_kecamatan" on="tap:gs_kecamatan.scrollTo">District (Kecamatan)</a>
+          <a href="#gs_kecamatan" on="tap:gs_kecamatan.scrollTo">District (<em>Kecamatan</em>)</a>
         </li>
         <li>
-          <a href="#gs_kelurahan" on="tap:gs_kelurahan.scrollTo">Sub Distric</a>
+          <a href="#gs_kelurahan" on="tap:gs_kelurahan.scrollTo">Sub District (<em>Kelurahan</em>)</a>
         </li>
         <li>
           <a href="#gs_kodepos" on="tap:gs_kodepos.scrollTo">ZipCodes</a>

@@ -1,10 +1,5 @@
 <div class="section">
   <div class="container">
-    <nav class="breadcrumb" aria-label="breadcrumbs">
-      <ul class="breadcrumbs">
-        <li class=""><NuxtLink to="<?=base_url()?>"><i class="fa fa-home"></i></NuxtLink></li>
-      </ul>
-    </nav>
 
     <div class="">
       <div class="column">
@@ -75,7 +70,7 @@
   ]
 }
             </pre>
-            <h2 id="gs_">Get Cities</h2>
+            <h2 id="gs_kabkota">Get Cities</h2>
             <p>API endpoint for getting the list of cities in Indonesia by province ID.</p>
             <p><code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
             <p>And the example result is</p>
@@ -95,7 +90,7 @@
   ]
 }
             </pre>
-            <h2>Get Districts</h2>
+            <h2 id="gs_kecamatan">Get Districts</h2>
             <p>API endpoint for getting the list of districts in Indonesia by cities ID.</p>
             <p><code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
             <p>And the example result is</p>
@@ -114,10 +109,13 @@
     }
   ]
 }
-                      </pre>
-                      <h2>Get Sub Districts</h2>
-                      <p>API endpoint for getting the list of sub districts in Indonesia by districts ID.</p> <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p> <p>And the example result is</p> <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
-                      <pre>{
+            </pre>
+            <h2 id=gs_kelurahan>Get Sub Districts</h2>
+            <p>API endpoint for getting the list of sub districts in Indonesia by districts ID.</p>
+            <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+            <p>And the example result is</p>
+            <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
+            <pre>{
   "status": 200,
   "message": "Berhasil",
   "result": [
@@ -132,22 +130,26 @@
   ]
 }
 </pre>
-                      <h2>Get Zip Codes</h2>
-                      <p>API endpoint for getting the list of Zip Codes in Indonesia by cities ID and districts ID.</p> <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p> <p>And the example result is</p> <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p> <pre>{
-            "status": 200,
-            "message": "Berhasil",
-            "result": [
-              {
-                "id": "3719",
-                "text": "29871"
-              },
-              {
-                "id": "3720",
-                "text": "29872"
-              }
-            ]
-          }
-                      </pre>
+            <h2 id="gs_kodepos">Get Zip Codes</h2>
+            <p>API endpoint for getting the list of Zip Codes in Indonesia by cities ID and districts ID.</p>
+            <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+            <p>And the example result is</p>
+            <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p>
+            <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+    {
+      "id": "3719",
+      "text": "29871"
+    },
+    {
+      "id": "3720",
+      "text": "29872"
+    }
+  ]
+}
+            </pre>
         </div>
       </div>
     </div>
