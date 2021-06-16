@@ -113,6 +113,6 @@ class D_Provinsi_Model extends SENE_Model{
     $this->db->order_by("$this->tbl3_as.nama","asc");
     $this->db->order_by("$this->tbl4_as.nama","asc");
     $this->db->order_by("$this->tbl5_as.nama","asc");
-    return $this->db->get('',1);
+    return $this->db->get('',0);
   }
 }
