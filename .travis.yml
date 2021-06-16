@@ -1,13 +1,17 @@
+dist: xenial
+os: linux
 language: php
+env:
+  - XDEBUG_MODE="coverage"
 php:
   - '7.2.22'
   - '7.3.23'
   - '7.4.15'
 before_script:
-  - mkdir -p /home/travis/build/drosanda/seme-framework/app/cache/
-  - chmod 775 /home/travis/build/drosanda/seme-framework/app/cache/
-  - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS tca_alamat;'
-  - sudo mysql -u root --default-character-set=utf8 tca_alamat < sql/tca_alamat.sql
+  - mkdir -p /home/travis/build/drosanda/address-id-api/app/cache/
+  - chmod 775 /home/travis/build/drosanda/address-id-api/app/cache/
+  - sudo mysql -e 'CREATE DATABASE IF NOT EXISTS seme_framework;'
+  - sudo mysql -u root --default-character-set=utf8 seme_framework < sql/tca_alamat.sql
 after_success:
     - bash <(curl -s https://codecov.io/bash)
     # - sonar-scanner
