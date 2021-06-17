@@ -6,11 +6,11 @@ Here is the version log:
 - 1.0.0 First Release
 
 ## Get started
-Start consuming the API by reading th [Docs](https://drosanda.github.io/seme-indonesian-address-provider-api/)
+Start consuming the API by reading the [Docs](https://alamat.thecloudalert.com/)
 
 ## Instalation
 Clone this repository
-`git clone https://github.com/drosanda/seme-indonesian-address-provider-api.git api-alamat`
+`git clone https://github.com/drosanda/address-id-api.git api-alamat`
 
 ### Importing database
 Importing database from sql/tca_alamat.sql
@@ -24,6 +24,7 @@ For setup your site please create and adjust following files:
 $site = "http://".$_SERVER['HTTP_HOST']."/alamat/";
 $sene_method = "PATH_INFO";//REQUEST_URI,PATH_INFO,ORIG_PATH_INFO,
 ```
+
 - app/config/database.php
 
 ```php
@@ -35,8 +36,9 @@ $db['name']  = "tca_alamat";
 $db['engine']= "mysqli"; //available mysql,mysqli,pdo
 ```
 
+
 ## How to use
-To use the API, you can open postman.json on this project directory using [Postman](https://www.postman.com/downloads/).
+To use the API, you can open [postman.json](https://github.com/drosanda/address-id-api/blob/master/postman.json) on this project directory using [Postman](https://www.postman.com/downloads/).
 
 ## Data Source
 Address and Location data obtained from [bachors](https://github.com/bachors/kodepos-indonesia.sql).
