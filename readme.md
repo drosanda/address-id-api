@@ -1,16 +1,18 @@
 # API Address Provider (ID)
-Ready to use API provider for address options in Indonesian format. Created from Seme Framework version 3.1.
+[![With](https://img.shields.io/badge/With-SemeFramework4-fb898f?style=flat)](https://seme.framework.web.id/)
+
+Ready to use API provider for address options in Indonesian format. Created from Seme Framework version 4.
 
 ## Version
 Here is the version log:
 - 1.0.0 First Release
 
 ## Get started
-Start consuming the API by reading the [Docs](https://alamat.thecloudalert.com/)
+Start consuming the API by reading the [alamat.thecloudalert.com](https://alamat.thecloudalert.com/)
 
 ## Instalation
 Clone this repository
-`git clone https://github.com/drosanda/address-id-api.git api-alamat`
+`git clone https://github.com/drosanda/address-id-api.git alamat`
 
 ### Importing database
 Importing database from sql/tca_alamat.sql
