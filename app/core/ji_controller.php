@@ -101,6 +101,8 @@
 
 		public function __construct(){
 			parent::__construct();
+			$this->setLang('en-ID');
+			$this->setIcon(base_url('favicon.png'));
 			$this->breadcrumbs = array();
 			$this->skins = new stdClass();
 			$this->skins->front = base_url('skin/front/');

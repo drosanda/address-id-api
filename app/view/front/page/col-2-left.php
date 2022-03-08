@@ -2,11 +2,17 @@
 //Example 1 column layout
 ?>
 <!doctype html>
-<html amp lang="en">
+<html amp lang="<?=$this->getLang()?>">
 <?php $this->getThemeElement("page/html/head",$__forward); ?>
 <?php $this->getBodyBefore(); ?>
 <body class="">
-  <?php $this->getThemeElement("page/html/menu_left",$__forward);?>
+  <?php
+  if($this->getLang() == 'id-ID'){
+    $this->getThemeElement("page/html/menu_left_id",$__forward);
+  }else{
+    $this->getThemeElement("page/html/menu_left",$__forward);
+  }
+  ?>
   <?php $this->getThemeElement("page/html/header",$__forward);?>
 
   <div class="main-content">
