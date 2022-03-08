@@ -1,3 +1,58 @@
+<script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "<?=base_url()?>",
+            "name": "Seme Indonesia Address API Documentation"
+          }
+        }
+      ]
+    },
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "<?=base_url()?>"
+      },
+      "headline": "<?=$this->getTitle()?>",
+      "dateCreated": "2015-02-05T08:00:00+08:00",
+      "datePublished": "2015-02-05T08:00:00+08:00",
+      "dateModified": "2022-03-08T20:10:00+07:00",
+      "author": {
+        "@type": "Person",
+        "gender": "Male",
+        "name": "Daeng Rosanda, S.Kom",
+        "alternateName": "Daeng Rosanda",
+        "jobTitle": "Founder",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Cipta Esensi Merenah",
+          "email": "hi@cenah.co.id"
+        }
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cipta Esensi Merenah",
+        "description": "Cipta Esensi Merenah (Cenah) is software house company focused on developing web-based application from Bandung, Indonesia.",
+        "logo": {
+          "@type": "ImageObject",
+          "name": "logo Cipta Esensi Merenah",
+          "url": "https://cdn.cenah.co.id/_nuxt/img/logo-wide.5420183.png",
+          "width": "256px",
+          "height": "62px"
+        }
+      },
+      "description": "<?=$this->getDescription()?>"
+    }
+  ]
+</script>
 <div class="section">
   <div class="container">
 
@@ -47,14 +102,17 @@
           <p>
             This API and pages source codes are available on <a href="" target="_blank">github</a>.
           </p>
+
           <hr>
+
           <h2 id="gs">Getting Started</h2>
           <p>This API is can be used for free but with no warranty. First thing first the base url of API is <code>https://alamat.thecloudalert.com/api/</code>.</p>
           <p>The API endpoint should follow the base url before consumed.</p>
+
           <h2 id="gs_provinsi">Get Provinces</h2>
           <p>API endpoint for generating the list of provinces in Indonesia.</p>
-          <p><code>https://alamat.thecloudalert.com/api/provinsi/get/</code></p>
-          <p>And the example result is</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/provinsi/get/</code></p>
+          <p>And the example result is:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -69,13 +127,13 @@
     }
   ]
 }
-            </pre>
-            <h2 id="gs_kabkota">Get Cities</h2>
-            <p>API endpoint for getting the list of cities in Indonesia by province ID.</p>
-            <p><code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
-            <p>And the example result is</p>
-            <p><code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=1</code></p>
-            <pre>{
+          </pre>
+          <h2 id="gs_kabkota">Get Cities</h2>
+          <p>API endpoint for getting the list of cities in Indonesia by province ID.</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
+          <p>And the example result is:</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=1</code></p>
+          <pre>{
   "status": 200,
   "message": "Berhasil",
   "result": [
@@ -89,13 +147,13 @@
     }
   ]
 }
-            </pre>
-            <h2 id="gs_kecamatan">Get Districts</h2>
-            <p>API endpoint for getting the list of districts in Indonesia by cities ID.</p>
-            <p><code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
-            <p>And the example result is</p>
-            <p><code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=1</code></p>
-            <pre>{
+          </pre>
+          <h2 id="gs_kecamatan">Get Districts</h2>
+          <p>API endpoint for getting the list of districts in Indonesia by cities ID.</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
+          <p>And the example result is:</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=1</code></p>
+          <pre>{
   "status": 200,
   "message": "Berhasil",
   "result": [
@@ -109,13 +167,13 @@
     }
   ]
 }
-            </pre>
-            <h2 id=gs_kelurahan>Get Sub Districts</h2>
-            <p>API endpoint for getting the list of sub districts in Indonesia by districts ID.</p>
-            <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
-            <p>And the example result is</p>
-            <p><code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
-            <pre>{
+          </pre>
+          <h2 id=gs_kelurahan>Get Sub Districts</h2>
+          <p>API endpoint for getting the list of sub districts in Indonesia by districts ID.</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+          <p>And the example result is:</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
+          <pre>{
   "status": 200,
   "message": "Berhasil",
   "result": [
@@ -130,12 +188,12 @@
   ]
 }
 </pre>
-            <h2 id="gs_kodepos">Get Zip Codes</h2>
-            <p>API endpoint for getting the list of Zip Codes in Indonesia by cities ID and districts ID.</p>
-            <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
-            <p>And the example result is</p>
-            <p><code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p>
-            <pre>{
+          <h2 id="gs_kodepos">Get Zip Codes</h2>
+          <p>API endpoint for getting the list of Zip Codes in Indonesia by cities ID and districts ID.</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+          <p>And the example result is:</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p>
+          <pre>{
   "status": 200,
   "message": "Berhasil",
   "result": [
@@ -149,7 +207,27 @@
     }
   ]
 }
-            </pre>
+          </pre>
+
+          <h2 id="gs_filter">Get Address by Keyword (Filter / Search)</h2>
+          <p>API endpoint for filtering the address result by keyword.</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/cari/index/?keyword=[Keyword]</code></p>
+          <p>And the example result is:</p>
+          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/cari/index/?keyword=Soreang</code></p>
+          <pre>{
+  "status": 200,
+  "message": "Berhasil",
+  "result": [
+      "negara": "Indonesia",
+      "provinsi": "Jawa Barat",
+      "kabkota": "Kabupaten Bandung",
+      "kecamatan": "Soreang",
+      "desakel": "Bukit Harapan"
+    },
+    ...
+  ]
+}
+          </pre>
         </div>
       </div>
     </div>

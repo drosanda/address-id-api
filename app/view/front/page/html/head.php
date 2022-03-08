@@ -2,10 +2,11 @@
   <meta charset="utf-8">
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <title><?php echo $this->getTitle(); ?></title>
-  <link rel="canonical" href="https://amp.dev/documentation/guides-and-tutorials/start/create/basic_markup/">
+  <link rel="canonical" href="<?=$this->getCanonical()?>">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
+  <link rel="icon" href="<?=$this->getIcon(); ?>" type="image/x-icon" />
 
   <?php $this->getAdditionalBefore(); ?>
   <?php $this->getAdditional(); ?>
@@ -290,6 +291,10 @@ code {
     font-weight: 400;
     padding: .25em .5em;
 }
+.endpoint {
+  padding: 0.5em;
+  background-color: #ededed;
+}
 
 @media screen and (max-width: 1024px){
   section, .section {
@@ -314,22 +319,7 @@ code {
   }
 }
     </style>
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "NewsArticle",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "<?=base_url()?>"
-        },
-        "headline": "Seme Indonesia Address Provider Documentation API",
-        "datePublished": "2015-02-05T08:00:00+08:00",
-        "dateModified": "2015-02-05T09:20:00+08:00",
-        "author": {
-          "@type": "Person",
-          "name": "Daeng Rosanda"
-        },
-        "description": "API Documentation for using Indonesian address provider"
-      }
-    </script>
+    
+    <link rel="alternate" href="<?=base_url()?>" hreflang="en-id" />
+    <link rel="alternate" href="<?=base_url('id')?>" hreflang="id-id" />
 </head>

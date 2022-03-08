@@ -1,7 +1,10 @@
 <amp-sidebar id="sidebar1" layout="nodisplay" side="left">
   <ul>
     <li>
-      <a href="#home"><i class="fa fa-home"></i> Home</a>
+      <a href="<?=base_url()?>"><i class="fa fa-home"></i> Home</a>
+    </li>
+    <li>
+      <a href="<?=base_url('id')?>">Bahasa version</a>
     </li>
     <li>
       <a href="#keyfeature" on="tap:keyfeature.scrollTo">Key Features</a>
@@ -32,6 +35,9 @@
         </li>
         <li>
           <a href="#gs_kodepos" on="tap:gs_kodepos.scrollTo">ZipCodes</a>
+        </li>
+        <li>
+          <a href="#gs_filter" on="tap:gs_filter.scrollTo">Filter</a>
         </li>
       </ul>
     </li>
