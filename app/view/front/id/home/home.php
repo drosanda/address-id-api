@@ -9,7 +9,7 @@
           "position": 1,
           "item": {
             "@id": "<?=base_url()?>",
-            "name": "Seme Indonesia Address API Documentation"
+            "name": "<?=$this->main_title?>"
           }
         },
         {
@@ -32,7 +32,7 @@
       "headline": "<?=$this->getTitle()?>",
       "dateCreated": "2015-02-05T08:00:00+08:00",
       "datePublished": "2015-02-05T08:00:00+08:00",
-      "dateModified": "2022-03-08T20:10:00+07:00",
+      "dateModified": "2022-03-19T12:10:00+07:00",
       "author": {
         "@type": "Person",
         "gender": "Male",
@@ -91,7 +91,7 @@
             <strong>RDBMS</strong>. Database yang telah dioptimasi dengan menggunakan indexing dan fitur cache untuk MariaDB.
           </p>
           <p>
-            <strong>JSON</strong>. Output API berupa JSON yang simple dan memudahkan untuk digunakan.
+            <strong>JSON</strong>. Output API berupa JSON yang simpel dan memudahkan untuk digunakan.
           </p>
           <hr>
 
@@ -113,14 +113,18 @@
           </p>
 
           <hr>
-          <h2 id="gs">Panduan Pengguna</h2>
+          <h2 id="gs">Panduan Penggunaan</h2>
           <p>API ini dapat digunakan secara <b>Gratis</b> tapi tidak ada jaminan bahwa layanan ini akan aktif terus menerus. Pertama-tama URL dasar (API Endpoint)-nya adalah <code>https://alamat.thecloudalert.com/api/</code>.</p>
-          <p>Semua proses pengambilan data ada setelah Endpoint tersebut.</p>
+          <p>Semua proses pengambilan data ada setelah <em>Endpoint</em> tersebut.</p>
 
-          <h2 id="gs_provinsi">Mengambil data Provinsi</h2>
-          <p>Untuk menampilkan list data provinsi, cukup dengan mengakses endpoint berikut ini.</p>
+          <h3 id="gs_provinsi">API Provinsi</h3>
+          <p>Untuk menampilkan list data provinsi yang ada di Indonesia.</p>
+          <h4>Bentuk Umum</h4>
+          <p class="endpoint"><b>GET</b> <code>provinsi/get/</code></p>
+          <h4>Cara Penggunaan</h4>
+          <p>Contoh cara penggunaan untuk pemanggilan API:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/provinsi/get/</code></p>
-          <p>Dan berikut ini adalah hasilnya:</p>
+          <p>Contoh hasil dari pemanggilan API:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -132,15 +136,19 @@
     {
       "id": "2",
       "text": "Bangka Belitung"
-    }
+    },
+    ...
   ]
 }
             </pre>
-            <h2 id="gs_kabkota">Mendapatkan list Kabupaten / Kota</h2>
-            <p>Endpoint API untuk mendapatkan list kabupaten / kota.</p>
-            <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
-            <p>Berikut ini adalah contoh hasilnya:</p>
+            <h3 id="gs_kabkota">API KabKota</h3>
+            <p>Endpoint API untuk mendapatkan list kabupaten atau kota.</p>
+            <h4>Bentuk Umum</h4>
+            <p class="endpoint"><b>GET</b> <code>kabkota/get/?d_provinsi_id=[ID_DARI_API_PROVINSI]</code></p>
+            <h4>Cara Penggunaan</h4>
+            <p>Contoh cara penggunaan untuk pemanggilan API:</p>
             <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=1</code></p>
+            <p>Contoh hasil dari pemanggilan API:</p>
             <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -152,15 +160,19 @@
     {
       "id": "2",
       "text": "Kabupaten Bangli"
-    }
+    },
+    ...
   ]
 }
             </pre>
-            <h2 id="gs_kecamatan">Mendapatkan list Kecamatan</h2>
-            <p>Endpoint API untuk mendapatkan list kecamatan.</p>
-            <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
-            <p>Berikut ini adalah contoh hasilnya:</p>
+            <h3 id="gs_kecamatan">API Kecamatan</h3>
+            <p>Endpoint API untuk mendapatkan list kecamatan berdasarkan ID Kabupaten atau Kota.</p>
+            <h4>Bentuk Umum</h4>
+            <p class="endpoint"><b>GET</b> <code>kecamatan/get/?d_kabkota_id=[ID_DARI_API_KABKOTA]</code></p>
+            <h4>Cara Penggunaan</h4>
+            <p>Contoh cara penggunaan untuk pemanggilan API:</p>
             <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=1</code></p>
+            <p>Contoh hasil dari pemanggilan API:</p>
             <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -176,11 +188,14 @@
   ]
 }
             </pre>
-            <h2 id=gs_kelurahan>Mendapatkan list Desa / Kelurahan</h2>
-            <p>Endpoint API untuk mendapatkan list kecamatan.</p>
-            <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
-            <p>Berikut ini adalah contoh hasilnya:</p>
+            <h3 id=gs_kelurahan>API DesaKel</h3>
+            <p>Endpoint API untuk mendapatkan list desa atau kelurahan berdasarkan ID dari API Kecamatan.</p>
+            <h4>Bentuk Umum</h4>
+            <p class="endpoint"><b>GET</b> <code>kelurahan/get/?d_kecamatan_id=[ID_DARI_API_KECAMATAN]</code></p>
+            <h4>Cara Penggunaan</h4>
+            <p>Contoh cara penggunaan untuk pemanggilan API:</p>
             <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
+            <p>Contoh hasil dari pemanggilan API:</p>
             <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -196,11 +211,14 @@
   ]
 }
 </pre>
-            <h2 id="gs_kodepos">Mendapatkan Kodepos</h2>
-            <p>Endpoint API untuk mendapatkan list kodepos.</p>
-            <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
-            <p>Berikut ini adalah contoh hasilnya:</p>
+            <h3 id="gs_kodepos">Kodepos</h3>
+            <p>Endpoint API untuk mendapatkan list kodepos berdasarkan ID dari API Kabkota dan ID dari API Kecamatan.</p>
+            <h4>Bentuk Umum</h4>
+            <p class="endpoint"><b>GET</b> <code>kodepos/get/?d_kabkota_id=[ID_DARI_API_KABKOTA]&amp;d_kecamatan_id=[ID_DARI_API_KECAMATAN]</code></p>
+            <h4>Cara Penggunaan</h4>
+            <p>Contoh cara penggunaan untuk pemanggilan API:</p>
             <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p>
+            <p>Contoh hasil dari pemanggilan API:</p>
             <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -216,11 +234,14 @@
   ]
 }
           </pre>
-          <h2 id="gs_kodepos">Filter / Pencarian Alamat</h2>
-          <p>Endpoint API untuk mencari alamat dengan <b>Keyword</b> tertentu.</p>
-          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/cari/index/?keyword=[Keyword]</code></p>
-          <p>Berikut ini adalah contoh hasilnya:</p>
+          <h3 id="gs_kodepos">API Searching / Filtering</h3>
+          <p>API untuk mencari alamat (provinsi / kabkota / kecamatan / desakel) dengan <em>keyword</em> tertentu.</p>
+          <h4>Bentuk Umum</h4>
+          <p class="endpoint"><b>GET</b> <code>cari/index/?keyword=[KATA_KUNCI_FILTER_PENCARIAN]</code></p>
+          <h4>Cara Penggunaan</h4>
+          <p>Contoh cara penggunaan untuk pemanggilan API:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/cari/index/?keyword=Soreang</code></p>
+          <p>Contoh hasil dari pemanggilan API:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",

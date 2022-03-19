@@ -9,7 +9,7 @@
           "position": 1,
           "item": {
             "@id": "<?=base_url()?>",
-            "name": "Seme Indonesia Address API Documentation"
+            "name": "<?=$this->main_title?>"
           }
         }
       ]
@@ -24,7 +24,7 @@
       "headline": "<?=$this->getTitle()?>",
       "dateCreated": "2015-02-05T08:00:00+08:00",
       "datePublished": "2015-02-05T08:00:00+08:00",
-      "dateModified": "2022-03-08T20:10:00+07:00",
+      "dateModified": "2022-03-19T11:14:00+07:00",
       "author": {
         "@type": "Person",
         "gender": "Male",
@@ -106,13 +106,17 @@
           <hr>
 
           <h2 id="gs">Getting Started</h2>
-          <p>This API is can be used for free but with no warranty. First thing first the base url of API is <code>https://alamat.thecloudalert.com/api/</code>.</p>
-          <p>The API endpoint should follow the base url before consumed.</p>
+          <p>This API is can be used for free but with no warranty. First thing first the base url of API endpoint is <code>https://alamat.thecloudalert.com/api/</code>.</p>
+          <p>The API endpoint should follow the base url endpoint before consumed.</p>
 
-          <h2 id="gs_provinsi">Get Provinces</h2>
-          <p>API endpoint for generating the list of provinces in Indonesia.</p>
+          <h3 id="gs_provinsi">Get Provinces</h3>
+          <p>API endpoint for getting list of provinces in Indonesia.</p>
+          <h4>Basic Usage</h4>
+          <p class="endpoint"><b>GET</b> <code>provinsi/get/</code></p>
+          <h4>Example</h4>
+          <p>Example API request:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/provinsi/get/</code></p>
-          <p>And the example result is:</p>
+          <p>Example result:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -128,11 +132,14 @@
   ]
 }
           </pre>
-          <h2 id="gs_kabkota">Get Cities</h2>
+          <h3 id="gs_kabkota">Get Cities</h3>
           <p>API endpoint for getting the list of cities in Indonesia by province ID.</p>
-          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
-          <p>And the example result is:</p>
+          <h4>Basic Usage</h4>
+          <p class="endpoint"><b>GET</b> <code>kabkota/get/?d_provinsi_id=[ID_FROM_PROVINCE_API]</code></p>
+          <h4>Example</h4>
+          <p>Example API request:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kabkota/get/?d_provinsi_id=1</code></p>
+          <p>Example result:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -148,11 +155,14 @@
   ]
 }
           </pre>
-          <h2 id="gs_kecamatan">Get Districts</h2>
+          <h3 id="gs_kecamatan">Get Districts</h3>
           <p>API endpoint for getting the list of districts in Indonesia by cities ID.</p>
-          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
-          <p>And the example result is:</p>
+          <h4>Basic Usage</h4>
+          <p class="endpoint"><b>GET</b> <code>kecamatan/get/?d_kabkota_id=[ID_FROM_CITIES_API]</code></p>
+          <h4>Example</h4>
+          <p>Example API request:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kecamatan/get/?d_kabkota_id=1</code></p>
+          <p>Example result:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -170,9 +180,12 @@
           </pre>
           <h2 id=gs_kelurahan>Get Sub Districts</h2>
           <p>API endpoint for getting the list of sub districts in Indonesia by districts ID.</p>
-          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
-          <p>And the example result is:</p>
+          <h4>Basic Usage</h4>
+          <p class="endpoint"><b>GET</b> <code>kelurahan/get/?d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+          <h4>Example</h4>
+          <p>Example API request:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kelurahan/get/?d_kecamatan_id=1</code></p>
+          <p>Example result:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -188,11 +201,14 @@
   ]
 }
 </pre>
-          <h2 id="gs_kodepos">Get Zip Codes</h2>
+          <h3 id="gs_kodepos">Get Zip Codes</h3>
           <p>API endpoint for getting the list of Zip Codes in Indonesia by cities ID and districts ID.</p>
-          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
-          <p>And the example result is:</p>
+          <h4>Basic Usage</h4>
+          <p class="endpoint"><b>GET</b> <code>kodepos/get/?d_kabkota_id=[ID_FROM_CITIES_API]&amp;d_kecamatan_id=[ID_FROM_DISTRICT_API]</code></p>
+          <h4>Example</h4>
+          <p>Example API request:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/kodepos/get/?d_kabkota_id=1&amp;d_kecamatan_id=1</code></p>
+          <p>Example result:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",
@@ -209,11 +225,14 @@
 }
           </pre>
 
-          <h2 id="gs_filter">Get Address by Keyword (Filter / Search)</h2>
+          <h3 id="gs_filter">Get Address by Keyword (Filter / Search)</h3>
           <p>API endpoint for filtering the address result by keyword.</p>
-          <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/cari/index/?keyword=[Keyword]</code></p>
-          <p>And the example result is:</p>
+          <h4>Basic Usage</h4>
+          <p class="endpoint"><b>GET</b> <code>cari/index/?keyword=[Keyword]</code></p>
+          <h4>Example</h4>
+          <p>Example API request:</p>
           <p class="endpoint"><b>GET</b> <code>https://alamat.thecloudalert.com/api/cari/index/?keyword=Soreang</code></p>
+          <p>Example result:</p>
           <pre>{
   "status": 200,
   "message": "Berhasil",

@@ -160,23 +160,23 @@ blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html
     margin-bottom: .5em;
 }
 .content h2 {
-    font-size: 1.75em;
+    font-size: 1.8em;
     margin-bottom: .5714em;
 }
 .content h3 {
-    font-size: 1.65em;
+    font-size: 1.60em;
     margin-bottom: .5814em;
 }
 .content h4 {
-    font-size: 1.55em;
+    font-size: 1.30em;
     margin-bottom: .5914em;
 }
 .content h5 {
-    font-size: 1.50em;
+    font-size: 1.20em;
     margin-bottom: .5914em;
 }
 .content h6 {
-    font-size: 1.41em;
+    font-size: 1.10em;
     margin-bottom: .5994em;
 }
 .content h2:not(:first-child) {
@@ -286,10 +286,10 @@ pre {
     word-wrap: normal;
 }
 code {
-    color: #ff3860;
-    font-size: .875em;
-    font-weight: 400;
-    padding: .25em .5em;
+  color: #ff3860;
+  font-size: .875em;
+  font-weight: 400;
+  background-color: #ffe8e9;
 }
 .endpoint {
   padding: 0.5em;
@@ -319,7 +319,7 @@ code {
   }
 }
     </style>
-    
+
     <link rel="alternate" href="<?=base_url()?>" hreflang="en-id" />
     <link rel="alternate" href="<?=base_url('id')?>" hreflang="id-id" />
 </head>

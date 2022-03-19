@@ -40,6 +40,8 @@
 		var $is_strict_module2 = 0;
 		var $current_parent = '';
 		var $current_page = '';
+		public $main_title = 'Indonesian Address API Documentation';
+		public $main_title_id = 'Indonesian Address API Documentation';
 
 		public function apikey_check($apikey){
 			if(strlen($apikey)>4){

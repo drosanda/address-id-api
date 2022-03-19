@@ -1,0 +1,12 @@
+User-Agent: *
+Disallow:
+Disallow: /app
+Disallow: /kero
+Allow: /assets/
+Allow: /assets/css
+Allow: /assets/img/
+Allow: /media
+Allow: /media/produk
+Allow: /skin
+
+Sitemap: https://https://alamat.thecloudalert.com/sitemap.xml

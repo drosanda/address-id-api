@@ -30,11 +30,9 @@
   <!-- End load JS in footer-->
 
   <!-- default JS Script-->
-  <script>
-  $(document).ready(function(e){
-    <?php $this->getJsReady(); ?>
-    <?php $this->getJsContent(); ?>
-  });
+  <script>  
+  <?php $this->getJsReady(); ?>
+  <?php $this->getJsContent(); ?>
   </script>
   <!-- default JS Script-->
 </body>
