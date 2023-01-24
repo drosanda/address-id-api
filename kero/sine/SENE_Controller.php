@@ -1,11 +1,14 @@
 <?php
 /**
- * Abstract class for controller wrapper
+ * Abstract Class for SemeFramework Class Controller
  *
- * @author: Daeng Rosanda
- * @package SemeFramework
- * @since SemeFramework 3.0.0
+ * @author Daeng Rosanda
+ * @version 4.0.3
+ *
+ * @package SemeFramework\Kero
+ * @since 3.0.0
  */
+#[AllowDynamicProperties]
 abstract class SENE_Controller
 {
     protected static $__instance;
@@ -98,7 +101,26 @@ abstract class SENE_Controller
     private function getThemeConfig()
     {
         if (file_exists($this->directories->app_view.'/'.$this->getTheme().'/'.$this->css_json)) {
-            return json_decode($this->fgc($this->directories->app_view.$this->getTheme().'/'.$this->css_json));
+            $dj = json_decode($this->fgc($this->directories->app_view.$this->getTheme().'/'.$this->css_json));
+            $da = array();
+            if (is_array($dj) && count($dj)) {
+                foreach ($dj as $d) {
+                    if (is_string($d)) {
+                        $da[] = $d;
+                    }
+                }
+            } elseif (isset($dj->link) && count($dj->link)) {
+                foreach ($dj->link as $d) {
+                    $a = '<link ';
+                    foreach ($d as $k=>$v) {
+                        $a .= $k.'="'.$v.'" ';
+                    }
+                    $da[] = rtrim($a).' />';
+                    unset($a,$k,$v);
+                }
+            }
+            unset($dj,$d);
+            return $da;
         } else {
             return array();
         }
@@ -112,7 +134,26 @@ abstract class SENE_Controller
     private function getJsFooterBasic()
     {
         if (file_exists($this->directories->app_view.'/'.$this->getTheme().'/'.$this->js_json)) {
-            return json_decode($this->fgc($this->directories->app_view.$this->getTheme().'/'.$this->js_json));
+            $dj = json_decode($this->fgc($this->directories->app_view.$this->getTheme().'/'.$this->js_json));
+            $da = array();
+            if (is_array($dj) && count($dj)) {
+                foreach ($dj as $d) {
+                    if (is_string($d)) {
+                        $da[] = $d;
+                    }
+                }
+            } elseif (isset($dj->script) && count($dj->script)) {
+                foreach ($dj->script as $d) {
+                    $a = '<script ';
+                    foreach ($d as $k=>$v) {
+                        $a .= $k.'="'.$v.'" ';
+                    }
+                    $da[] = rtrim($a).'></script>';
+                    unset($a,$k,$v);
+                }
+            }
+            unset($dj,$d);
+            return $da;
         } else {
             return array();
         }
@@ -125,7 +166,7 @@ abstract class SENE_Controller
     protected function setTheme(string $theme="front")
     {
         $this->theme = rtrim($theme, '/').'/';
-        if(!is_dir($this->directories->app_view.$this->theme.'/')){
+        if (!is_dir($this->directories->app_view.$this->theme.'/')) {
             trigger_error(TEM_ERR.': Missing theme directory for '.$theme.'', E_USER_ERROR);
         }
         $this->additional = $this->getThemeConfig();
@@ -139,7 +180,8 @@ abstract class SENE_Controller
      * if library relatives to kero/lib
      * @param  string $a          location and name of view without .php suffix
      * @param  string $b          alias of instantiate object, default empty
-     * @param  string $c       [description]
+     * @param  string $c          Type of loaded
+     *
      * @return object             return this class
      */
     protected function load(string $a, string $b='', string $c="model")
@@ -152,9 +194,16 @@ abstract class SENE_Controller
             }
             $b = strtolower($b);
             if (file_exists($mfile)) {
+                require_once $mfile;
                 if (!class_exists($cname)) {
-                    require_once $mfile;
+                    $namespace = isset($_SESSION['namespace']) ? $_SESSION['namespace'] : '';
+                    $cname = $namespace.'\\'.$cname;
                 }
+
+                if (!class_exists($cname)) {
+                    trigger_error(TEM_ERR.': could load model '.$a.' on '.$mfile.' ('.$cname.')', E_USER_ERROR);
+                }
+
                 $this->{$b} = new $cname();
             } else {
                 trigger_error(TEM_ERR.': could not find model '.$a.'  on '.$mfile, E_USER_ERROR);
@@ -167,6 +216,14 @@ abstract class SENE_Controller
             $b = strtolower($b);
             if (file_exists($mfile)) {
                 require_once $mfile;
+                if (!class_exists($cname)) {
+                    $namespace = isset($_SESSION['namespace']) ? $_SESSION['namespace'] : '';
+                    $b = $namespace.'\\'.$b;
+                }
+
+                if (!class_exists($b)) {
+                    trigger_error(TEM_ERR.': could load model '.$a.' on '.$mfile.' ('.$b.')', E_USER_ERROR);
+                }
                 $this->$b = new $b();
             } else {
                 trigger_error(TEM_ERR.': could not find library '.$a.'  on '.$mfile, E_USER_ERROR);
@@ -192,7 +249,7 @@ abstract class SENE_Controller
     protected function getThemeElement(string $a='', array $__forward=array(), int $cacheable=0)
     {
         if (!empty($a)) {
-            $this->view(strtr($this->theme.DS.$a,"//", "/"), $__forward);
+            $this->view(strtr($this->theme.DS.$a, "//", "/"), $__forward);
             $this->render($cacheable);
         }
         return $this;
@@ -313,7 +370,7 @@ abstract class SENE_Controller
             unset($_SESSION[$keytemp]);
             ob_start();
             require_once($v.'.php');
-            $this->js_ready = ob_get_contents();
+            $this->js_ready .= ob_get_contents();
             ob_end_clean();
             return $this;
         } else {
@@ -400,7 +457,7 @@ abstract class SENE_Controller
             trigger_error(TEM_ERR.': unable to load putBodyBefore for '.$v.'.php', E_USER_ERROR);
         }
     }
-    
+
     /**
      * Get JavaScript content injected from putBodyBefore
      */
@@ -445,8 +502,9 @@ abstract class SENE_Controller
     }
 
     /**
-     * get content language for meta content language
-     * @return [type] [description]
+     * Get content language for meta content language
+     *
+     * @return string   current content language
      */
     protected function getContentLanguage()
     {
@@ -615,8 +673,8 @@ abstract class SENE_Controller
      */
     protected function removeAdditional($key)
     {
-        if(isset($this->additional[$key])){
-          unset($this->additional[$key]);
+        if (isset($this->additional[$key])) {
+            unset($this->additional[$key]);
         }
         return $this;
     }
@@ -699,10 +757,10 @@ abstract class SENE_Controller
      */
     protected function getCanonical()
     {
-      if(strlen($this->canonical)<4){
-        return rtrim(base_url('')."".$_SERVER['REQUEST_URI']."",'/').'/';
-      }
-      return rtrim($this->canonical,'/').'/';
+        if (strlen($this->canonical)<4) {
+            return rtrim(base_url('')."".$_SERVER['REQUEST_URI']."", '/').'/';
+        }
+        return rtrim($this->canonical, '/').'/';
     }
 
     /*
@@ -710,84 +768,84 @@ abstract class SENE_Controller
     */
     protected function getAdditionalBefore()
     {
-      foreach ($this->additionalBefore as $a) {
-        if (is_string($a)) {
-          if(strpos($a,LBL_BASE_URL) !== false){
-            $a = str_replace(LBL_BASE_URL, base_url(''),$a);
-          }elseif(strpos($a,LBL_BASE_URL_ADMIN) !== false){
-            $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''),$a);
-          }elseif(strpos($a,LBL_CDN_URL) !== false){
-            $cdn_url = '';
-            if(isset($this->config->cdn_url)){
-              $cdn_url = $this->config->cdn_url;
+        foreach ($this->additionalBefore as $a) {
+            if (is_string($a)) {
+                if (strpos($a, LBL_BASE_URL) !== false) {
+                    $a = str_replace(LBL_BASE_URL, base_url(''), $a);
+                } elseif (strpos($a, LBL_BASE_URL_ADMIN) !== false) {
+                    $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''), $a);
+                } elseif (strpos($a, LBL_CDN_URL) !== false) {
+                    $cdn_url = '';
+                    if (isset($this->config->cdn_url)) {
+                        $cdn_url = $this->config->cdn_url;
+                    }
+                    if (strlen($cdn_url)>4) {
+                        $a = str_replace(LBL_CDN_URL, $cdn_url, $a);
+                    } else {
+                        $a = str_replace(LBL_CDN_URL, base_url(''), $a);
+                    }
+                }
+                echo "\n\t".$a;
             }
-            if(strlen($cdn_url)>4){
-              $a = str_replace(LBL_CDN_URL, $cdn_url,$a);
-            }else{
-              $a = str_replace(LBL_CDN_URL, base_url(''),$a);
-            }
-          }
-          echo "\n\t".$a;
         }
-      }
     }
 
-   /**
-    * Get list of array CSS after default configration from theme.json
-    * @return void
-    */
+    /**
+     * Get list of array CSS after default configration from theme.json
+     * @return void
+     */
     protected function getAdditional()
     {
-      if (is_array($this->additional)){
-        foreach ($this->additional as $a) {
-          if (is_string($a)) {
-            if(strpos($a,LBL_BASE_URL) !== false){
-              $a = str_replace(LBL_BASE_URL, base_url(''),$a);
-            }elseif(strpos($a,LBL_BASE_URL_ADMIN) !== false){
-              $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''),$a);
-            }elseif(strpos($a,LBL_CDN_URL) !== false){
-              $cdn_url = '';
-              if(isset($this->config->cdn_url)){
-                $cdn_url = $this->config->cdn_url;
-              }
-              if(strlen($cdn_url)>4){
-                $a = str_replace(LBL_CDN_URL, $cdn_url,$a);
-              }else{
-                $a = str_replace(LBL_CDN_URL, base_url(''),$a);
-              }
+        if (is_array($this->additional)) {
+            foreach ($this->additional as $a) {
+                if (is_string($a)) {
+                    if (strpos($a, LBL_BASE_URL) !== false) {
+                        $a = str_replace(LBL_BASE_URL, base_url(''), $a);
+                    } elseif (strpos($a, LBL_BASE_URL_ADMIN) !== false) {
+                        $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''), $a);
+                    } elseif (strpos($a, LBL_CDN_URL) !== false) {
+                        $cdn_url = '';
+                        if (isset($this->config->cdn_url)) {
+                            $cdn_url = $this->config->cdn_url;
+                        }
+                        if (strlen($cdn_url)>4) {
+                            $a = str_replace(LBL_CDN_URL, $cdn_url, $a);
+                        } else {
+                            $a = str_replace(LBL_CDN_URL, base_url(''), $a);
+                        }
+                    }
+                    echo "\n\t".$a;
+                }
             }
-            echo "\n\t".$a;
-          }
         }
-      }
     }
 
-   /**
-    * Get list of array CSS after default configration from theme.json
-    * @return void
-    */
+    /**
+     * Get list of array CSS after default configration from theme.json
+     * @return void
+     */
     protected function getAdditionalAfter()
     {
-      foreach ($this->additionalAfter as $a) {
-        if (is_string($a)) {
-          if(strpos($a,LBL_BASE_URL) !== false){
-            $a = str_replace(LBL_BASE_URL, base_url(''),$a);
-          }elseif(strpos($a,LBL_BASE_URL_ADMIN) !== false){
-            $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''),$a);
-          }elseif(strpos($a,LBL_CDN_URL) !== false){
-            $cdn_url = '';
-            if(isset($this->config->cdn_url)){
-              $cdn_url = $this->config->cdn_url;
+        foreach ($this->additionalAfter as $a) {
+            if (is_string($a)) {
+                if (strpos($a, LBL_BASE_URL) !== false) {
+                    $a = str_replace(LBL_BASE_URL, base_url(''), $a);
+                } elseif (strpos($a, LBL_BASE_URL_ADMIN) !== false) {
+                    $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''), $a);
+                } elseif (strpos($a, LBL_CDN_URL) !== false) {
+                    $cdn_url = '';
+                    if (isset($this->config->cdn_url)) {
+                        $cdn_url = $this->config->cdn_url;
+                    }
+                    if (strlen($cdn_url)>4) {
+                        $a = str_replace(LBL_CDN_URL, $cdn_url, $a);
+                    } else {
+                        $a = str_replace(LBL_CDN_URL, base_url(''), $a);
+                    }
+                }
+                echo "\n\t".$a;
             }
-            if(strlen($cdn_url)>4){
-              $a = str_replace(LBL_CDN_URL, $cdn_url,$a);
-            }else{
-              $a = str_replace(LBL_CDN_URL, base_url(''),$a);
-            }
-          }
-          echo "\n\t".$a;
         }
-      }
     }
 
     /**
@@ -796,28 +854,28 @@ abstract class SENE_Controller
      */
     protected function getJsFooter()
     {
-      if(is_array($this->js_footer)){
-        foreach ($this->js_footer as $a) {
-          if (is_string($a)) {
-            if(strpos($a,LBL_BASE_URL) !== false){
-              $a = str_replace(LBL_BASE_URL, base_url(''),$a);
-            }elseif(strpos($a,LBL_BASE_URL_ADMIN) !== false){
-              $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''),$a);
-            }elseif(strpos($a,LBL_CDN_URL) !== false){
-              $cdn_url = '';
-              if(isset($this->config->cdn_url)){
-                $cdn_url = $this->config->cdn_url;
-              }
-              if(strlen($cdn_url)>4){
-                  $a = str_replace(LBL_CDN_URL, $cdn_url,$a);
-              }else{
-                  $a = str_replace(LBL_CDN_URL, base_url(''),$a);
-              }
+        if (is_array($this->js_footer)) {
+            foreach ($this->js_footer as $a) {
+                if (is_string($a)) {
+                    if (strpos($a, LBL_BASE_URL) !== false) {
+                        $a = str_replace(LBL_BASE_URL, base_url(''), $a);
+                    } elseif (strpos($a, LBL_BASE_URL_ADMIN) !== false) {
+                        $a = str_replace(LBL_BASE_URL_ADMIN, base_url_admin(''), $a);
+                    } elseif (strpos($a, LBL_CDN_URL) !== false) {
+                        $cdn_url = '';
+                        if (isset($this->config->cdn_url)) {
+                            $cdn_url = $this->config->cdn_url;
+                        }
+                        if (strlen($cdn_url)>4) {
+                            $a = str_replace(LBL_CDN_URL, $cdn_url, $a);
+                        } else {
+                            $a = str_replace(LBL_CDN_URL, base_url(''), $a);
+                        }
+                    }
+                    echo "\n\t".$a;
+                }
             }
-            echo "\n\t".$a;
-          }
         }
-      }
     }
 
     /**
@@ -911,14 +969,24 @@ abstract class SENE_Controller
     protected function lib($a, $b='', $c="lib")
     {
         if ($c=='lib') {
-            $lpath = strtr($this->directories->kero_lib.$a.'.php',"\\", "/");
+            $lpath = strtr($this->directories->kero_lib.$a.'.php', "\\", "/");
             if (file_exists(strtolower($lpath))) {
                 require_once(strtolower($lpath));
                 $cname = basename($lpath, '.php');
-                $method = new $cname();
                 if (empty($b)) {
                     $b = $cname;
                 }
+                if (!class_exists($cname)) {
+                    $namespace = isset($_SESSION['namespace']) ? $_SESSION['namespace'] : '';
+                    $cname = $namespace.'\\'.$cname;
+                } else {
+                    $cname = '\\'.$cname;
+                }
+
+                if (!class_exists($cname)) {
+                    trigger_error(TEM_ERR.': could load library '.$a.' on '.$lpath.' ('.$cname.')', E_USER_ERROR);
+                }
+                $method = new $cname();
                 $b = strtolower($b);
                 $this->{$b} = $method;
             } elseif (file_exists($lpath)) {
@@ -1077,8 +1145,8 @@ abstract class SENE_Controller
     protected function cdn_url($url='')
     {
         $cdn_url = '';
-        if(isset($this->config->cdn_url)){
-          $cdn_url = $this->config->cdn_url;
+        if (isset($this->config->cdn_url)) {
+            $cdn_url = $this->config->cdn_url;
         }
         if ($this->config->environment == 'development' || empty($this->config->environment)) {
             return base_url($url);
