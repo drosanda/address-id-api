@@ -1,14 +1,15 @@
 <?php
 /**
+ * Engine Class for MySQL / MariaDB database type
+ * Contains some query builder that compatible with MySQL or MariaDB query / command.
+ *
  * @author: Daeng Rosanda
- * @package SemeFramework
- * @since SemeFramework 2.0.0
-*/
-
-
-/**
- * Class model for  MySQLi connection
+ * @version 4.0.3
+ *
+ * @package SemeFramework\Kero\Sine
+ * @since 2.0.0
  */
+#[AllowDynamicProperties]
 class SENE_MySQLi_Engine
 {
     protected static $__instance;
@@ -38,6 +39,7 @@ class SENE_MySQLi_Engine
     public $join_multi=0;
     public $in_join_multi=0;
     public $query_last;
+    public $union;
     public $is_debug;
 
     public function __construct()
@@ -56,7 +58,7 @@ class SENE_MySQLi_Engine
             $this->__mysqli->connect($this->config->database->host, $this->config->database->user, $this->config->database->pass, $this->config->database->name, $port);
         } catch (mysqli_sql_exception $e) {
             if ($this->config->environment == 'development') {
-                trigger_error(TEM_ERR.': Cannot connect to database server using the supplied settings. '.$this->__mysqli->connect_errno.': '.$this->__mysqli->connect_error, E_USER_ERROR);
+                trigger_error(TEM_ERR.': Cannot connect to database server using the supplied settings.', E_USER_ERROR);
                 throw $e;
             } elseif ($this->config->environment == 'staging' && $this->__mysqli->connect_errno) {
                 header("content-type: application/json");
@@ -71,7 +73,7 @@ class SENE_MySQLi_Engine
         }
 
         $cs = 'utf8';
-        if (isset($this->config->database->charset) && strlen($this->config->database->port)>0) {
+        if (isset($this->config->database->charset) && strlen($this->config->database->charset)>0) {
             $cs = $this->config->database->charset;
         }
         $this->__mysqli->set_charset($cs);
@@ -96,12 +98,46 @@ class SENE_MySQLi_Engine
         $this->join_multi = array();
         $this->query_last = '';
         $this->is_debug = 1;
+
+        $this->_union_init();
+    }
+
+    private function _union_init()
+    {
+        $this->union = new stdClass();
+		$this->union->select = array();
+		$this->union->table = array();
+		$this->union->from_as = 'u1';
+		$this->union->group_by = '';
+		$this->union->order_by = array();
+		$this->union->limit = '';
+
+        return $this;
     }
 
     public static function getInstance()
     {
         return self::$_instance;
     }
+
+    private function has_bracket_open($bracket_flag)
+    {
+        if ($bracket_flag == true || !empty($bracket_flag)) {
+            $this->in_where .= " ( ";
+        }
+
+        return $this;
+    }
+
+    private function has_bracket_close($bracket_flag)
+    {
+        if ($bracket_flag == true || !empty($bracket_flag)) {
+            $this->in_where .= " ) ";
+        }
+
+        return $this;
+    }
+
     public function autocommit($var=1)
     {
         return $this->__mysqli->autocommit($var);
@@ -313,6 +349,26 @@ class SENE_MySQLi_Engine
         return array("field"=>$this->fieldname,"value"=>fieldvalue);
     }
 
+    public function where_null($col_params, $operand="AND", $comp="", $bracket=0, $bracket2=0)
+    {
+        $this->has_bracket_open($bracket);
+        $this->in_where .= ' '.$col_params.' IS NULL ';
+        $this->has_bracket_close($bracket2);
+        $this->in_where .= ' '.$operand.' ';
+
+        return $this;
+    }
+
+    public function where_not_null($col_params, $operand="AND", $comp="", $bracket=0, $bracket2=0)
+    {
+        $this->has_bracket_open($bracket);
+        $this->in_where .= ' '.$col_params.' IS NOT NULL ';
+        $this->has_bracket_close($bracket2);
+        $this->in_where .= ' '.$operand.' ';
+
+        return $this;
+    }
+
     /*
     * Function Where
     * ==========================================================
@@ -420,9 +476,7 @@ class SENE_MySQLi_Engine
                         $val = $this->esc($v);
                 }
 
-                if ($bracket) {
-                    $this->in_where .= " ( ";
-                }
+                $this->has_bracket_open($bracket);
 
                 $kst = explode(".", $k);
                 if (count($kst)) {
@@ -436,9 +490,7 @@ class SENE_MySQLi_Engine
                     unset($kst);
                 }
                 $this->in_where .= ' '.$c.' '.$val.' ';
-                if ($bracket2) {
-                    $this->in_where .= " ) ";
-                }
+                $this->has_bracket_close($bracket2);
                 $this->in_where .= ' '.strtoupper($operand).' ';
             }
             unset($c);
@@ -449,9 +501,7 @@ class SENE_MySQLi_Engine
             $val = $params2;
             $v = $params2;
 
-            if ($bracket) {
-                $this->in_where .= " ( ";
-            }
+            $this->has_bracket_open($bracket);
 
             $kst = explode(".", $params);
             if (count($kst)) {
@@ -546,7 +596,7 @@ class SENE_MySQLi_Engine
                     $val = $this->esc($val);
                     break;
                 default:
-                    if (strtoupper(trim($v)) == "IS NULL" || strtoupper(trim($v)) == "IS NOT NULL") {
+                    if (strtoupper(trim($v)) == "IS NULL" || strtoupper(trim($v)) == "IS NOT NULL" || strtoupper(trim($v)) == "IS NOT NULL") {
                         $c = '';
                         $val = strtoupper($v);
                     } else {
@@ -556,9 +606,7 @@ class SENE_MySQLi_Engine
             }
 
             $this->in_where .= ' '.$c.' '.$val.' ';
-            if ($bracket2) {
-                $this->in_where .= " ) ";
-            }
+            $this->has_bracket_close($bracket2);
             $this->in_where .= ' '.$operand.' ';
             unset($c);
             unset($v);
@@ -661,16 +709,12 @@ class SENE_MySQLi_Engine
                         $val = ($v);
                 }
 
-                if ($bracket) {
-                    $this->in_where .= " ( ";
-                }
+                $this->has_bracket_open($bracket);
                 $this->in_where .= ''.$k.'';
                 unset($kst);
 
                 $this->in_where .= ' '.$c.' '.$val.'';
-                if ($bracket2) {
-                    $this->in_where .= " ) ";
-                }
+                $this->has_bracket_close($bracket2);
                 $this->in_where .= ' '.strtoupper($operand).' ';
             }
             unset($c);
@@ -681,9 +725,7 @@ class SENE_MySQLi_Engine
             $val = $params2;
             $v = $params2;
 
-            if ($bracket) {
-                $this->in_where .= " ( ";
-            }
+            $this->has_bracket_open($bracket);
 
             $kst = explode(".", $params);
             if (count($kst)) {
@@ -788,7 +830,7 @@ class SENE_MySQLi_Engine
                     $val = ($val);
                     break;
                 default:
-                    if (strtoupper(trim($v)) == "IS NULL" || strtoupper(trim($v)) == "IS NOT NULL") {
+                    if (strtoupper(trim($v)) == "IS NULL" || strtoupper(trim($v)) == "IS NOT NULL" || strtoupper(trim($v)) == "IS NOT NULL") {
                         $c = '';
                         $val = strtoupper($v);
                     } else {
@@ -797,9 +839,7 @@ class SENE_MySQLi_Engine
                     }
             }
             $this->in_where .= ' '.$c.' '.$val.' ';
-            if ($bracket2) {
-                $this->in_where .= " ) ";
-            }
+            $this->has_bracket_close($bracket2);
             $this->in_where .=  ' '.$operand.' ';
 
             $this->in_where = trim($this->in_where, '=');
@@ -1587,6 +1627,7 @@ class SENE_MySQLi_Engine
 
     /**
      * Set debug flag for query command
+     *
      * @param boolean $is_debug     (1|0)
      */
     public function setDebug($is_debug)
@@ -1611,11 +1652,258 @@ class SENE_MySQLi_Engine
 
     /**
      * Decrypt the string
+     *
      * @param  string $s decrypted string
+     *
      * @return string      decrypt command
      */
     public function __decrypt($s)
     {
         return 'AES_DECRYPT('.$s.',"'.$this->config->database->enckey.'")';
     }
+
+
+
+	/**
+	 * Created Union Query table from query builder (last query)
+	 * @return boolean $flush 		0 not flush, 1 flush
+	 * @return string  Query
+	 */
+	public function union_create($flush=1){
+		if(!isset($this->union)) $this->union = new stdClass();
+		if(!isset($this->union->table)) $this->union->table = array();
+		if(!is_array($this->union->table)) $this->union->table = array();
+
+		$this->in_select = rtrim($this->in_select,", ");
+		if(empty($this->in_select)) $this->in_select = "*";
+		$sql = "SELECT ".$this->in_select." FROM `".$this->table."`";
+
+		if (count($this->join) > 0) {
+      $table_alias = array_search($this->table, $this->as_from);
+      if ($table_alias !== 0) {
+          $sql .= ' '.$table_alias.' ';
+          foreach ($this->join as $j) {
+              $sql .= strtoupper($j->method).' JOIN '.$j->table.' ON ';
+              foreach($j->on as $o){
+                $sql .= '('.$o.') ';
+              }
+          }
+      } else {
+          trigger_error('Please use alias for main table first, you can set alias using $this->db->setTableAlias("YOURALIAS") OR $this->db->from("tabelname","tablealias");');
+          die();
+      }
+    } else {
+        $table_alias = array_search($this->table, $this->as_from);
+        if ($table_alias !== 0) {
+            $sql .= ' '.$table_alias.' ';
+        }
+    }
+
+		if(!empty($this->in_where)){
+			$this->in_where = rtrim($this->in_where,"AND ");
+			$this->in_where = rtrim($this->in_where,"OR ");
+			$sql .= " WHERE ".$this->in_where;
+		}
+		if(!empty($flush)) $this->flushQuery();
+		$this->union->table[] = $sql;
+		return $this;
+	}
+
+	/**
+	 * Add select column for union method
+	 *
+	 * @param  string $k 	Column name
+	 * @param  string $a 	Column Alias string
+	 *
+	 * @return object    	this object
+	 */
+	public function union_select($k,$a=''){
+		if(!isset($this->union)) $this->union = new stdClass();
+		if(!isset($this->union->select)) $this->union->select = array();
+		if(!is_array($this->union->select)) $this->union->select = array();
+		if(strlen($a)==0){
+			$a = $k;
+		}
+		$this->union->select[$a] = $k;
+		return $this;
+	}
+
+	/**
+	 * Set alias table for union method
+	 *
+	 * @param  string $a 	Alias string
+	 *
+	 * @return object    	this object
+	 */
+	public function union_alias($a){
+		if(!isset($this->union)) $this->union = new stdClass();
+		if(!isset($this->union->from_as)) $this->union->from_as = '';
+		if(!is_string($this->union->from_as)) $this->union->from_as = '';
+		if(strlen($a)==0){
+			trigger_error('Empty union_alias parameter');
+			die();
+		}
+		$this->union->from_as = $a;
+		return $this;
+	}
+
+	/**
+	 * Set group by criteria for union method
+	 *
+	 * @param  string $g 	Group by string
+	 *
+	 * @return object    	this object
+	 */
+	public function union_group_by($g){
+		if(!isset($this->union)) $this->union = new stdClass();
+		if(!isset($this->union->group_by)) $this->union->group_by = '';
+		if(!is_string($this->union->group_by)) $this->union->group_by = '';
+		if(strlen($g)==0){
+			trigger_error('Empty union_grup_by parameter');
+			die();
+		}
+		$this->union->group_by = $g;
+		return $this;
+	}
+
+	/**
+	 * Add order by criteria for union method
+	 *
+	 * @param  string $c 	sort by column name
+	 * @param  string $d 	sort direction
+	 *
+	 * @return object    	this object
+	 */
+	public function union_order_by($c,$d){
+		if(!isset($this->union)) $this->union = new stdClass();
+		if(!isset($this->union->order_by)) $this->union->order_by = array();
+		if(!is_array($this->union->order_by)) $this->union->order_by = array();
+		if(strlen($c)==0){
+			trigger_error('Empty union_grup_by parameter');
+			die();
+		}
+		$d = strtoupper($d);
+		if(strlen($d)==0){
+			$d = 'ASC';
+		}
+		$this->union->order_by[] = $c.' '.$d;
+		return $this;
+	}
+
+	/**
+	 * Add limit query result for union
+	 *
+	 * @param  string $a 	sort by column name
+	 * @param  string $b 	sort direction
+	 *
+	 * @return object    	this object
+	 */
+	public function union_limit($a='',$b=''){
+		if(!isset($this->union)) $this->union = new stdClass();
+		if(!isset($this->union->order_by)) $this->union->order_by = array();
+		if(!is_array($this->union->order_by)) $this->union->order_by = array();
+
+		$a = (int) $a;
+		$b = (int) $b;
+		if($a<=0) $a = '';
+		if($b<=0) $b = '';
+		if(strlen($a) && strlen($b)){
+			$this->union->limit = $a.', '.$b;
+		}elseif(strlen($a) && strlen($b)==0){
+			$this->union->limit = $a;
+		}elseif(strlen($a)==0 && strlen($b)){
+			$this->union->limit = $b;
+		}else{
+			$this->union->limit = '';
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Get result Executed union query
+	 *
+	 * @return object this object
+	 */
+	public function union_get($is_debug=0){
+		if(!isset($this->union->select)){
+			trigger_error('Missing union.select object on union_get');
+			die();
+		}
+		if(!isset($this->union->from_as)){
+			trigger_error('Missing union.from_as object on union_get');
+			die();
+		}
+		if(!isset($this->union->table)){
+			trigger_error('Missing union.table object on union_get');
+			die();
+		}
+		if(!is_array($this->union->table)){
+			trigger_error('Invalid type union.table object, is not an array');
+			die();
+		}
+		if(count($this->union->table)==0){
+			trigger_error('Empty union table');
+			die();
+		}
+		if(!is_string($this->union->group_by)){
+			trigger_error('Invalid type union.group_by object, is not a string');
+			die();
+		}
+		if(!is_array($this->union->order_by)){
+			trigger_error('Invalid type union.order_by object, is not an array');
+			die();
+		}
+		$sql = 'SELECT ';
+		if(count($this->union->select)){
+			foreach($this->union->select as $k=>$v){
+				if(!is_numeric($k) && $k != $v){
+					$sql .= ' '.$v.' AS '.$k.' ';
+				}else{
+					$sql .= ' '.$v.' ';
+				}
+			}
+		}else{
+			$sql .= ' * ';
+		}
+		$sql .= ' FROM ( ';
+		foreach($this->union->table as $k=>$v){
+			$sql .= $v.' UNION ';
+		}
+		$sql = chop($sql, ' UNION ');
+		$sql .= ' ) AS '.$this->union->from_as.' ';
+		if(strlen($this->union->group_by)){
+			$sql .= ' GROUP BY '.$this->union->group_by;
+		}
+		if(count($this->union->order_by)){
+			$sql .= ' ORDER BY ';
+			foreach($this->union->order_by as $k=>$v){
+				$sql .= ''.$v.', ';
+			}
+			$sql = rtrim($sql,', ');
+		}
+		if(strlen($this->union->limit)){
+			$sql .= ' LIMIT '.$this->union->limit;
+		}
+		if($is_debug){
+			die($sql);
+		}
+		return $this->query($sql);
+	}
+
+	/**
+	 * Reset union object to its default value
+	 *
+	 * @return object this object
+	 */
+	public function union_flush(){
+		$this->union = new stdClass();
+		$this->union->select = array();
+		$this->union->from_as = 'u1';
+		$this->union->table = array();
+		$this->union->group_by = '';
+		$this->union->order_by = array();
+		$this->union->limit = '';
+		return $this;
+	}
 }

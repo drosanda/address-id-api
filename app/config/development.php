@@ -54,7 +54,7 @@ $db['engine'] = 'mysqli';
 /* == Session Configuration == */
 /* @var string */
 /****************************/
-$saltkey = 's3mEFr4';
+$saltkey = 's3mEFr4Addr';
 
 /********************************/
 /* == Timezone Configuration == */

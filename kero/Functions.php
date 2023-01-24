@@ -1,32 +1,50 @@
 <?php
-/*
-* Global functions goes here
+/**
+* Global functions that use by accross application
+*
+* @author Daeng Rosanda
+* @version 4.0.3
+*
+* @package SemeFramework\Kero
+* @since 4.0.0
 */
 
 /**
- * Get relatives base url
- * @param  string $url addtional url
- * @return string      full base url
- */
+* Get relatives base url
+* @param  string $url addtional url
+* @return string      full base url
+*/
 function base_url($url='')
 {
     return $GLOBALS['SEMECFG']->baseurl.$url;
 }
 /**
- * Set admin secret base url
- * @param  string $url addtional url
- * @return string      full url
- */
+* Set admin secret base url
+* @param  string $url addtional url
+* @return string      full url
+*/
 function base_url_admin($url='')
 {
     return  $GLOBALS['SEMECFG']->baseurl.$GLOBALS['SEMECFG']->baseurl_admin.'/'.$url;
 }
+
 /**
- * Redirect to target url
- * @param  string  $url  target full qualified url
- * @param  integer $time delay time
- * @param  integer $type type of redirection, 1> html, 0 http header
- */
+* Set front scoped base url
+*
+* @param  string $url addtional url
+*
+* @return string      full url
+*/
+function base_url_front($url='')
+{
+    return  $GLOBALS['SEMECFG']->baseurl.$GLOBALS['SEMECFG']->baseurl_front.'/'.$url;
+}
+/**
+* Redirect to target url
+* @param  string  $url  target full qualified url
+* @param  integer $time delay time
+* @param  integer $type type of redirection, 1> html, 0 http header
+*/
 function redir($url, $time=0, $type=0)
 {
     if ($type=="1" || $type==1) {
@@ -46,9 +64,9 @@ function redir($url, $time=0, $type=0)
     }
 }
 /**
- * Var Dumper
- * @param  mixed  $var  any variable that can be dumped
- */
+* Var Dumper
+* @param  mixed  $var  any variable that can be dumped
+*/
 function dd($var)
 {
     echo "<pre>";
@@ -56,12 +74,12 @@ function dd($var)
     exit;
 }
 /**
- * Customize Error Handler
- * @param  int $errno         Error number
- * @param  string $errstr        Error string (message)
- * @param  string $error_file    Error occured on
- * @param  int $error_line    occurences line number in a file
- */
+* Customize Error Handler
+* @param  int $errno         Error number
+* @param  string $errstr        Error string (message)
+* @param  string $error_file    Error occured on
+* @param  int $error_line    occurences line number in a file
+*/
 function seme_error_handling($errno, $errstr, $error_file, $error_line)
 {
     if (isset($_SERVER['argv'])) {
@@ -69,8 +87,8 @@ function seme_error_handling($errno, $errstr, $error_file, $error_line)
         $bct = array();
         $fls = array();
 
-        if(!defined('SEME_VERBOSE')){
-          $fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php','runner_controller.php');
+        if (!defined('SEME_VERBOSE')) {
+            $fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php','runner_controller.php');
         }
 
         $ef = explode('/', str_replace('\\', '/', $error_file));
@@ -140,8 +158,8 @@ function seme_error_handling($errno, $errstr, $error_file, $error_line)
         $backtraces = debug_backtrace();
         $bct = array();
         $fls = array();
-        if(!defined('SEME_VERBOSE')){
-          $fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php');
+        if (!defined('SEME_VERBOSE')) {
+            $fls = array('index.php','sene_controller.php','sene_model.php','sene_engine.php','sene_mysqli_engine.php');
         }
 
         $ef = explode('/', str_replace('\\', '/', $error_file));
@@ -216,3 +234,16 @@ function seme_error_handling($errno, $errstr, $error_file, $error_line)
 
 // register error handler
 set_error_handler("seme_error_handling");
+
+/**
+ * Procedure for registering namespace into current session
+ * This method will allowed SemeFramework core loaded controller or model if namespace is specified
+ *
+ * @param  string $namespace               [description]
+ *
+ * @return void
+ */
+function register_namespace($namespace = __NAMESPACE__)
+{
+    $_SESSION['namespace'] = $namespace;
+}

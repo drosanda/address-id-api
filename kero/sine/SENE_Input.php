@@ -1,19 +1,22 @@
 <?php
 /**
- * @author: Daeng Rosanda
- * @package SemeFramework
- * @since SemeFramework 4.0.0
+ * Helper Class for Input through HTTP method like GET, POST, and REQUEST
+ *
+ * @author Daeng Rosanda
+ * @version 4.0.3
+ *
+ * @package SemeFramework\Kero\Sine
+ * @since 4.0.0
  */
-
-/**
- * Input class helper
- */
+#[AllowDynamicProperties]
 class SENE_Input
 {
     /**
      * Get value from $_POST payload
+     *
      * @param  string $k    keyname of POST
      * @param  mixed  $d    default return value
+     *
      * @return mixed        value from current keyname
      */
     public function post(string $k, $d = 0)
@@ -27,8 +30,10 @@ class SENE_Input
 
     /**
      * Get value from $_GET payload
+     *
      * @param  string $k    keyname of GET
      * @param  mixed  $d    default return value
+     *
      * @return mixed        value from current keyname
      */
     public function get(string $k, $d = 0)
@@ -42,8 +47,10 @@ class SENE_Input
 
     /**
      * Get value from $_REQUEST payload
+     *
      * @param  string $k    keyname of REQUEST
      * @param  mixed  $d    default return value
+     *
      * @return mixed        value from current keyname
      */
     public function request(string $k, $d = 0)
@@ -63,6 +70,7 @@ class SENE_Input
             return 0;
         }
     }
+
     public function debug()
     {
         return array("post_param"=>$_POST,"get_param"=>$_GET,"request_param"=>$_REQUEST,"file_param"=>$_FILES);
