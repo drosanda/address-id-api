@@ -1,133 +1,154 @@
 <?php
-class kodepos extends JI_Controller{
+class kodepos extends JI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->lib("seme_purifier");
+        $this->load("api/d_kodepos_model", 'dkm');
+    }
 
-	public function __construct(){
-    parent::__construct();
-		$this->lib("seme_purifier");
-		$this->load("api/d_kodepos_model",'dkm');
-	}
+    public function index()
+    {
+        $d = $this->__init();
+        $data = array();
 
-	public function index(){
-		$d = $this->__init();
-		$data = array();
+        $draw = $this->input->post("draw");
+        $sval = $this->input->post("search");
+        $sSearch = $this->input->post("sSearch");
+        $sEcho = $this->input->post("sEcho");
+        $page = $this->input->post("iDisplayStart");
+        $pagesize = $this->input->post("iDisplayLength");
 
-		$draw = $this->input->post("draw");
-		$sval = $this->input->post("search");
-		$sSearch = $this->input->post("sSearch");
-		$sEcho = $this->input->post("sEcho");
-		$page = $this->input->post("iDisplayStart");
-		$pagesize = $this->input->post("iDisplayLength");
-
-		$iSortCol_0 = $this->input->post("iSortCol_0");
-		$sSortDir_0 = $this->input->post("sSortDir_0");
+        $iSortCol_0 = $this->input->post("iSortCol_0");
+        $sSortDir_0 = $this->input->post("sSortDir_0");
 
 
-		$sortDir = strtoupper($sSortDir_0);
-		if(empty($sortDir)) $sortDir = "DESC";
-		if(strtolower($sortDir) != "desc"){
-			$sortDir = "ASC";
-		}
+        $sortDir = strtoupper($sSortDir_0);
+        if (empty($sortDir)) {
+            $sortDir = "DESC";
+        }
+        if (strtolower($sortDir) != "desc") {
+            $sortDir = "ASC";
+        }
 
-    $tbl_as = $this->dkm->getTblAs();
-    $tbl2_as = $this->dkm->getTblAs2();
-    $tbl3_as = $this->dkm->getTblAs3();
+        $tbl_as = $this->dkm->getTblAs();
+        $tbl2_as = $this->dkm->getTblAs2();
+        $tbl3_as = $this->dkm->getTblAs3();
 
-		switch($iSortCol_0){
-			case 0:
-				$sortCol = "$tbl_as.id";
-				break;
-			case 1:
-				$sortCol = "$tbl2_as.nama";
-				break;
-			case 2:
-				$sortCol = "$tbl3_as.nama";
-				break;
+        switch ($iSortCol_0) {
+            case 0:
+                $sortCol = "$tbl_as.id";
+                break;
+            case 1:
+                $sortCol = "$tbl2_as.nama";
+                break;
+            case 2:
+                $sortCol = "$tbl3_as.nama";
+                break;
         case 3:
-  				$sortCol = "$tbl_as.kodepos";
-  				break;
-			default:
-				$sortCol = "$tbl_as.id";
-		}
+                $sortCol = "$tbl_as.kodepos";
+                break;
+            default:
+                $sortCol = "$tbl_as.id";
+        }
 
-		if(empty($draw)) $draw = 0;
-		if(empty($pagesize)) $pagesize=10;
-		if(empty($page)) $page=0;
+        if (empty($draw)) {
+            $draw = 0;
+        }
+        if (empty($pagesize)) {
+            $pagesize=10;
+        }
+        if (empty($page)) {
+            $page=0;
+        }
 
-		$keyword = $sSearch;
+        $keyword = $sSearch;
 
-		$this->status = 200;
-		$this->message = 'Berhasil';
-		$dcount = $this->dkm->countAll($keyword);
-		$ddata = $this->dkm->getAll($page,$pagesize,$sortCol,$sortDir,$keyword);
+        $this->status = 200;
+        $this->message = 'Berhasil';
+        $dcount = $this->dkm->countAll($keyword);
+        $ddata = $this->dkm->getAll($page, $pagesize, $sortCol, $sortDir, $keyword);
 
-		foreach($ddata as &$gd){
-			if(isset($gd->is_active)){
-				if(!empty($gd->is_active)){
-					$gd->is_active = 'Aktif';
-				}else{
-					$gd->is_active = 'Tidak Aktif';
-				}
-			}
+        foreach ($ddata as &$gd) {
+            if (isset($gd->is_active)) {
+                if (!empty($gd->is_active)) {
+                    $gd->is_active = 'Aktif';
+                } else {
+                    $gd->is_active = 'Tidak Aktif';
+                }
+            }
+        }
 
-		}
+        $data['cabang'] = $ddata;
+        //sleep(3);
+        $another = array();
+        $this->__jsonDataTable($ddata, $dcount);
+    }
 
-		$data['cabang'] = $ddata;
-		//sleep(3);
-		$another = array();
-		$this->__jsonDataTable($ddata,$dcount);
-	}
+    public function get()
+    {
+        $this->status = 200;
+        $this->message = 'Berhasil';
+        $d_kabkota_id = (int) $this->input->request("d_kabkota_id");
+        if ($d_kabkota_id<=0) {
+            $d_kabkota_id="";
+        }
+        $d_kecamatan_id = (int) $this->input->request("d_kecamatan_id");
+        if ($d_kabkota_id<=0) {
+            $d_kecamatan_id="";
+        }
+        if (strlen($d_kabkota_id)<=0 && strlen($d_kecamatan_id)<=0) {
+            $this->status = 200;
+            $this->message = 'ID kecamatan dan ID kabkota tidak valid';
+            $data = array();
+        } else {
+            $data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
+        }
+        $this->__json_out($data);
+    }
+    public function search()
+    {
+        $this->status = 200;
+        $this->message = 'Berhasil';
+        $keyword = $this->input->request("keyword");
+        $l = mb_strlen($keyword);
+        if ($l<=0 && $l>32) {
+            $this->status = 900;
+            $this->message = 'keyword tidak valid';
+            $data = array();
+        } else {
+            $data = $this->dkm->getSearch($keyword);
+        }
+        $this->__json_out($data);
+    }
+    public function getbyid()
+    {
+        $this->status = 200;
+        $this->message = 'Berhasil';
+        $d_kabkota_id = (int) $this->input->request("d_kabkota_id");
+        if (strlen($d_kabkota_id)==0 || empty($d_kabkota_id)) {
+            $d_kabkota_id="";
+        }
+        $d_kecamatan_id = (int) $this->input->request("d_kecamatan_id");
+        if (strlen($d_kecamatan_id)==0 || empty($d_kecamatan_id)) {
+            $d_kecamatan_id="";
+        }
+        $data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
+        $this->__json_out($data);
+    }
 
-  public function get(){
-		$this->status = 200;
-		$this->message = 'Berhasil';
-		$d_kabkota_id = (int) $this->input->request("d_kabkota_id");
-		if($d_kabkota_id<=0) $d_kabkota_id="";
-    $d_kecamatan_id = (int) $this->input->request("d_kecamatan_id");
-		if($d_kabkota_id<=0) $d_kecamatan_id="";
-		if(strlen($d_kabkota_id)<=0 && strlen($d_kecamatan_id)<=0){
-			$this->status = 200;
-			$this->message = 'ID kecamatan dan ID kabkota tidak valid';
-			$data = array();
-		}else{
-			$data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
-		}
-    $this->__json_out($data);
-  }
-  public function search(){
-		$this->status = 200;
-		$this->message = 'Berhasil';
-    $keyword = $this->input->request("keyword");
-		$l = mb_strlen($keyword);
-		if($l<=0 && $l>32){
-			$this->status = 900;
-			$this->message = 'keyword tidak valid';
-			$data = array();
-		}else{
-			$data = $this->dkm->getSearch($keyword);
-		}
-    $this->__json_out($data);
-  }
-  public function getbyid(){
-		$this->status = 200;
-		$this->message = 'Berhasil';
-    $d_kabkota_id = (int) $this->input->request("d_kabkota_id");
-		if(strlen($d_kabkota_id)==0 || empty($d_kabkota_id)) $d_kabkota_id="";
-    $d_kecamatan_id = (int) $this->input->request("d_kecamatan_id");
-		if(strlen($d_kecamatan_id)==0 || empty($d_kecamatan_id)) $d_kecamatan_id="";
-    $data = $this->dkm->getByKabKotaIdKecamatanId($d_kabkota_id, $d_kecamatan_id);
-    $this->__json_out($data);
-  }
-
-  public function detail(){
-		$this->status = 200;
-		$this->message = 'Berhasil';
-    $d_kodepos_id = (int) $this->input->request("d_kodepos_id");
-		if($d_kodepos_id<=0){
-			$this->status = 901;
-			$this->message = 'ID kecamatan dan ID kabkota tidak valid';
-			$data = array();
-		}
-		$data = $this->dkm->getById($d_kodepos_id);
-    $this->__json_out($data);
-  }
+    public function detail()
+    {
+        $this->status = 200;
+        $this->message = 'Berhasil';
+        $d_kodepos_id = (int) $this->input->request("d_kodepos_id");
+        if ($d_kodepos_id<=0) {
+            $this->status = 901;
+            $this->message = 'ID kecamatan dan ID kabkota tidak valid';
+            $data = array();
+        }
+        $data = $this->dkm->getById($d_kodepos_id);
+        $this->__json_out($data);
+    }
 }
