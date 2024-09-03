@@ -1,0 +1,30 @@
+name: PHP Lint Check
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+
+    - name: PHP lint
+      run: |
+        lint_errors=$(find app -type f -name "*.php" -exec php -l {} \; 2>&1)
+        echo "$lint_errors"
+        if grep -q "Parse error" <<< "$lint_errors"; then
+          exit 1
+        fi
