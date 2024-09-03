@@ -1,5 +1,5 @@
 <?php
-class D_Provinsi_Model extends SENE_Model
+class D_Provinsi_Model extends \SENE_Model
 {
     public $tbl = 'd_provinsi';
     public $tbl_as = 'dp';
@@ -112,6 +112,15 @@ class D_Provinsi_Model extends SENE_Model
         $this->db->order_by("$this->tbl_as.nama", "asc");
         return $this->db->get('', 0);
     }
+    private function join_zipcode()
+    {
+        $composites = [
+            $this->db->composite_create("$this->tbl3_as.id", "=", "$this->tbl6_as.d_kabkota_id", "AND", 1, 0),
+            $this->db->composite_create("$this->tbl4_as.id", "=", "$this->tbl6_as.d_kecamatan_id", "AND", 0, 1)
+        ];
+        
+        return $composites;
+    }
     public function cari($keyword)
     {
         $this->db->select_as("$this->tbl2_as.nama", "negara", 0);
@@ -119,23 +128,27 @@ class D_Provinsi_Model extends SENE_Model
         $this->db->select_as("$this->tbl3_as.nama", "kabkota", 0);
         $this->db->select_as("$this->tbl4_as.nama", "kecamatan", 0);
         $this->db->select_as("$this->tbl5_as.nama", "desakel", 0);
+        $this->db->select_as("$this->tbl6_as.kodepos", "kodepos", 0);
 
         $this->db->from($this->tbl, $this->tbl_as);
         $this->db->join($this->tbl2, $this->tbl2_as, 'nation_code', $this->tbl_as, 'd_negara_nation_code', '');
         $this->db->join($this->tbl3, $this->tbl3_as, 'd_provinsi_id', $this->tbl_as, 'id', '');
         $this->db->join($this->tbl4, $this->tbl4_as, 'd_kabkota_id', $this->tbl3_as, 'id', '');
         $this->db->join($this->tbl5, $this->tbl5_as, 'd_kecamatan_id', $this->tbl4_as, 'id', '');
+        $this->db->join_composite($this->tbl6, $this->tbl6_as, $this->join_zipcode(), '');
         if (strlen($keyword)>0) {
             $this->db->where_as("$this->tbl_as.nama", $keyword, 'OR', 'like%%', 1, 0);
             $this->db->where_as("$this->tbl2_as.nama", $keyword, 'OR', 'like%%', 0, 0);
             $this->db->where_as("$this->tbl3_as.nama", $keyword, 'OR', 'like%%', 0, 0);
             $this->db->where_as("$this->tbl4_as.nama", $keyword, 'OR', 'like%%', 0, 0);
-            $this->db->where_as("$this->tbl5_as.nama", $keyword, 'OR', 'like%%', 0, 1);
+            $this->db->where_as("$this->tbl5_as.nama", $keyword, 'OR', 'like%%', 0, 0);
+            $this->db->where_as("$this->tbl6_as.kodepos", $keyword, 'OR', 'like%%', 0, 1);
         }
         $this->db->order_by("$this->tbl_as.nama", "asc");
         $this->db->order_by("$this->tbl3_as.nama", "asc");
         $this->db->order_by("$this->tbl4_as.nama", "asc");
         $this->db->order_by("$this->tbl5_as.nama", "asc");
+        $this->db->order_by("$this->tbl6_as.kodepos", "asc");
         return $this->db->get('', 0);
     }
 }
